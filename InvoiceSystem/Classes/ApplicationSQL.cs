@@ -18,11 +18,7 @@ namespace InvoiceSystem
     /// </summary>
     public class ApplicationSQL
     {
-        private clsDataAccess clsData = new clsDataAccess();
-
-
-
-
+        
     }
 
     //Example

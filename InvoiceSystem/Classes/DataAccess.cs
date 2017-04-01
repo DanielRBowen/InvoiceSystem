@@ -7,7 +7,7 @@ using System.Reflection;
     /// <summary>
     /// Class used to access the database.
     /// </summary>
-	public class clsDataAccess
+	public class DataAccess
 	{
         /// <summary>
         /// Connection string to the database.
@@ -17,7 +17,7 @@ using System.Reflection;
         /// <summary>
         /// Constructor that sets the connection string to the database
         /// </summary>
-		public clsDataAccess()
+		public DataAccess()
 		{
             sConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory() + "\\Books.mdb";
 		}

@@ -29,11 +29,11 @@
 
                 <!--“Search for Invoice” -->
                 <Button Name="SearchWindowButton" Content="Search for Invoice" Click="SearchWindowButton_Click"/>
-                <Button Name="DefinitionTableWindowButton" Content="Definition Table" Grid.Column="2" Click="DefinitionTableWindowButton_Click"/>
+                <Button Name="DefinitionTableWindowButton" Content="Items Definition Table" Grid.Column="2" Click="DefinitionTableWindowButton_Click"/>
             </Grid>
         </GroupBox>
 
-        <!--Comand Buttons Buttons-->
+        <!--Command Buttons Buttons-->
         <GroupBox Grid.Row="2">
             <GroupBox.Header>
                 <Label Content="Invoice Actions"/>

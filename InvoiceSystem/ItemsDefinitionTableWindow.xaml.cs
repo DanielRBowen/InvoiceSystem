@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InvoiceSystem.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace InvoiceSystem
     /// <summary>
     /// Interaction logic for DefinitionTableWindow.xaml
     /// </summary>
-    public partial class DefinitionTableWindow : Window
+    public partial class ItemsDefinitionTableWindow : Window
     {
         /// <summary>
         /// The last form needed is a form to update the def table which contains all the items for the business.  
@@ -32,7 +33,7 @@ namespace InvoiceSystem
         /// When the user closes the update def table form, make sure to update the drop down box as to reflect any changes made by the user.  
         /// Also update the current invoice because its item name might have been updated.
         /// </summary>
-        public DefinitionTableWindow()
+        public ItemsDefinitionTableWindow()
         {
             try
             {
@@ -40,27 +41,7 @@ namespace InvoiceSystem
             }
             catch (Exception ex)
             {
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                   MethodInfo.GetCurrentMethod().Name, ex);
-            }
-        }
-
-        /// <summary>
-        /// Handles Error messages
-        /// All methods should handle exceptions.  
-        /// </summary>
-        /// <param name="sClass"></param>
-        /// <param name="sMethod"></param>
-        /// <param name="exception"></param>
-        private void HandleError(string sClass, string sMethod, Exception exception)
-        {
-            try
-            {
-                MessageBox.Show(sClass + "." + sMethod + " -> " + exception.Message + "---- " + exception.StackTrace);
-            }
-            catch (System.Exception ex)
-            {
-                System.IO.File.AppendAllText(@"C:\Error.txt", Environment.NewLine + "HandleError Exception: " + ex.Message);
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -78,8 +59,7 @@ namespace InvoiceSystem
             }
             catch (Exception ex)
             {
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                   MethodInfo.GetCurrentMethod().Name, ex);
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -99,8 +79,7 @@ namespace InvoiceSystem
             }
             catch (Exception ex)
             {
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                   MethodInfo.GetCurrentMethod().Name, ex);
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -117,8 +96,7 @@ namespace InvoiceSystem
             }
             catch (Exception ex)
             {
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                   MethodInfo.GetCurrentMethod().Name, ex);
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -135,8 +113,7 @@ namespace InvoiceSystem
             }
             catch (Exception ex)
             {
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                   MethodInfo.GetCurrentMethod().Name, ex);
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -156,8 +133,7 @@ namespace InvoiceSystem
             }
             catch (Exception ex)
             {
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                   MethodInfo.GetCurrentMethod().Name, ex);
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
     }
