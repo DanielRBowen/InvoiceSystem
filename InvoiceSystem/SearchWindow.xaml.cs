@@ -1,0 +1,141 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace InvoiceSystem
+{
+    /// <summary>
+    /// Interaction logic for SearchWindow.xaml
+    /// </summary>
+    public partial class SearchWindow : Window
+    {
+        /// <summary>
+        /// The user also needs to be able to search for invoices, which will be a choice from the menu.
+        /// On the search screen all invoices should be displayed in a list (like a DataGrid) for the user to select.  
+        /// The user may limit the invoices displayed by choosing an Invoice Number from a drop down, selecting an invoice date, 
+        /// or selecting the total charge from a drop down box.  When a limiting item is selected the list should only reflect those invoices that match the criteria.  
+        /// A clear selection button should reset the form to its initial state. 
+        /// Once an invoice is selected the user will click a “Select Invoice” button, which will close the search form and open the selected invoice up for viewing on the main screen.  
+        /// From there the user may choose to Edit or Delete the invoice.
+        /// </summary>
+        public SearchWindow()
+        {
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                   MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles Error messages
+        /// All methods should handle exceptions.  
+        /// </summary>
+        /// <param name="sClass"></param>
+        /// <param name="sMethod"></param>
+        /// <param name="exception"></param>
+        private void HandleError(string sClass, string sMethod, Exception exception)
+        {
+            try
+            {
+                MessageBox.Show(sClass + "." + sMethod + " -> " + exception.Message + "---- " + exception.StackTrace);
+            }
+            catch (System.Exception ex)
+            {
+                System.IO.File.AppendAllText(@"C:\Error.txt", Environment.NewLine + "HandleError Exception: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Handles the closing event.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            try
+            {
+                base.OnClosing(e);
+                new MainWindow().Show();
+                return;
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                   MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        /// <summary>
+        /// Once an invoice is selected the user will click a “Select Invoice” button, which will close the search form and open the selected invoice up for viewing on the main screen.  
+        /// From there the user may choose to Edit or Delete the invoice.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SelectButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Set Current Invoice in App.InvoiceSystemLogic
+                //App.InvoiceSystemLogic.CurrentInvoice =
+                Close();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                   MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        /// <summary>
+        /// Cancels the search and closes the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Close();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                   MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        /// <summary>
+        /// A clear selection button should reset the form to its initial state. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Close();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                   MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+    }
+}

@@ -1,0 +1,72 @@
+﻿<Window x:Class="InvoiceSystem.SearchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InvoiceSystem"
+        mc:Ignorable="d"
+        Title="Search" Height="720" Width="1280" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Command Buttons-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Name="SelectButton" Content="Select Invoice" IsDefault="True" Click="SelectButton_Click"/>
+            <!--“Select Invoice”-->
+            <Button Name="CancelButton" Grid.Column="2" Content="Cancel" IsCancel="True" Click="CancelButton_Click"/>
+            <Button Name="ClearButton" Grid.Column="4" Content="Clear" Click="ClearButton_Click"/>
+        </Grid>
+
+        <!--Filters-->
+        <GroupBox Grid.Row="2">
+            <GroupBox.Header>
+                <Label Content="Filter"/>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="290"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="By Invoice Number:" FontSize="15"/>
+                <Label Content="By Date:" FontSize="15" Grid.Row="2"/>
+                <Label Content="By Total Charge:" FontSize="15" Grid.Row="4"/>
+
+                <ComboBox Name="InvoiceNumberComboBox" Grid.Column="2"/>
+                <ComboBox Name="InvoiceDateComboBox" Grid.Row="2" Grid.Column="2"/>
+                <ComboBox Name="TotalChargeComboBox" Grid.Row="4" Grid.Column="2"/>
+            </Grid>
+        </GroupBox>
+
+        <!--Invoices-->
+        <DataGrid Name="InvoiceDataGrid" Grid.Row="4" AutoGenerateColumns="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="True"
+                  CanUserResizeRows="True" CanUserSortColumns="True" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" Background="#C0C0C0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Invoice Number"/>
+                <DataGridTextColumn Header="Date"/>
+                <DataGridTextColumn Header="Total Charge"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

@@ -1,0 +1,14 @@
+﻿<Application x:Class="InvoiceSystem.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:InvoiceSystem"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--Since this a WPF application you should use styles for your applications.  Visual properties shouldn’t be hard coded into controls, they should be put into styles and applied to controls.-->
+                <ResourceDictionary Source="Styles/BureauBlue.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

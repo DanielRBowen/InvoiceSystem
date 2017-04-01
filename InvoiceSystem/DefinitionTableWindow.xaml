@@ -1,0 +1,44 @@
+﻿<Window x:Class="InvoiceSystem.DefinitionTableWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InvoiceSystem"
+        mc:Ignorable="d"
+        Title="Definition Table" Height="720" Width="1280" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Command Buttons-->
+        <Grid Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Name="CancelButton" Content="Cancel" IsCancel="True" Click="CancelButton_Click"/>
+            <Button Name="AddButton" Grid.Column="2" Content="Add" Click="AddButton_Click"/>
+            <Button Name="EditButton" Grid.Column="4" Content="Edit" Click="EditButton_Click"/>
+            <Button Name="DeleteButton" Grid.Column="6" Content="Delete" Click="DeleteButton_Click"/>
+        </Grid>
+
+        <!--Items-->
+        <DataGrid Name="ItemDataGrid" Grid.Row="2" AutoGenerateColumns="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="True"
+                  CanUserResizeRows="True" CanUserSortColumns="True" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" Background="#C0C0C0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name"/>
+                <DataGridTextColumn Header="Cost"/>
+                <DataGridTextColumn Header="Description"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

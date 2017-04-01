@@ -1,0 +1,97 @@
+﻿<Window x:Class="InvoiceSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InvoiceSystem"
+        mc:Ignorable="d"
+        Title="Invoice System" Height="720" Width="1280" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Open up windows -->
+        <GroupBox>
+            <GroupBox.Header>
+                <Label Content="Windows"/>
+            </GroupBox.Header>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--“Search for Invoice” -->
+                <Button Name="SearchWindowButton" Content="Search for Invoice" Click="SearchWindowButton_Click"/>
+                <Button Name="DefinitionTableWindowButton" Content="Definition Table" Grid.Column="2" Click="DefinitionTableWindowButton_Click"/>
+            </Grid>
+        </GroupBox>
+
+        <!--Comand Buttons Buttons-->
+        <GroupBox Grid.Row="2">
+            <GroupBox.Header>
+                <Label Content="Invoice Actions"/>
+            </GroupBox.Header>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Button Name="CreateNewInvoiceButton" Content="Create New Invoice" Click="CreateNewInvoiceButton_Click"/>
+                <Button Name="EditInvoiceButton" Content="Edit Invoice" Grid.Column="2" Click="EditInvoiceButton_Click"/>
+                <Button Name="DeleteInvoiceButton" Content="Delete Invoice" Grid.Column="4" Click="DeleteInvoiceButton_Click"/>
+            </Grid>
+        </GroupBox>
+
+        <!--Create, edit, and delete invoice for current or new invoice-->
+        <GroupBox Grid.Row="4">
+            <GroupBox.Header>
+                <Label Content="Invoice"/>
+            </GroupBox.Header>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="Invoice Number:"/>
+                <Label Name="InvoiceNumberLabel" Grid.Column="2" Content="1"/>
+                <DatePicker Name="InvoiceDatePicker" Grid.Column="4"/>
+
+                <Button Name="AddItemButton" Content="Add Item" Grid.Row="2"/>
+                <ComboBox Name="ItemsComboBox" Grid.Row="2" Grid.Column="2"/>
+                <TextBox Name="ItemCostTextBox" Text="$9999.99" Grid.Row="2" Grid.Column="4" IsReadOnly="True"/>
+
+                <!--Invoice Items Items-->
+                <DataGrid Name="ItemDataGrid" Grid.Row="4" AutoGenerateColumns="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="True"
+                  CanUserResizeRows="True" CanUserSortColumns="True" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" Background="#C0C0C0" Grid.ColumnSpan="5">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name"/>
+                        <DataGridTextColumn Header="Cost"/>
+                        <DataGridTextColumn Header="Description"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
