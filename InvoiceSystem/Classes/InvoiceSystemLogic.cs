@@ -32,14 +32,14 @@ namespace InvoiceSystem
         /// Can add, edit, and delete items within the definition table window.
         /// Must retrieve and update from the database accordingly.
         /// </summary>
-        public Items Items { get; set; }
+        public ItemManager Items { get; set; }
 
         /// <summary>
         /// Contains all the invoices found within the search window datagrid can add to in the main window 
         /// and can edit or delete current ones from the search window passed to the main window
         /// Must retrieve and update from the database accordingly.
         /// </summary>
-        public Invoices Invoices { get; set; }
+        public InvoiceManager Invoices { get; set; }
 
         /// <summary>
         /// Default constructor when creating a new invoice system.
