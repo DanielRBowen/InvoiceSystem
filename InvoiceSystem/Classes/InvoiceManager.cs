@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 namespace InvoiceSystem
 {
     /// <summary>
-    /// Contains the items that can be displayed in the data grid of the definition table
+    /// Contains all the invoices as an Enumerable object
     /// </summary>
-    public class Items : IEnumerable<Item>
+    public class InvoiceManager : IEnumerable<Invoice>
     {
         /// <summary>
-        /// Contains a list of items
+        /// Contains a list of invoices
         /// </summary>
-        private List<Item> ItemList { get; set; } = new List<Item>();
+        private List<Invoice> InvoiceList { get; set; } = new List<Invoice>();
 
         /// <summary>
-        /// Enumerator interface of items from the item list.
+        /// Enumerator interface of invoices from the Invoice list.
         /// </summary>
         /// <returns></returns>
-        public IEnumerator<Item> GetEnumerator() => ItemList.GetEnumerator();
+        public IEnumerator<Invoice> GetEnumerator() => InvoiceList.GetEnumerator();
 
         /// <summary>
         /// The matching return type of IEnumerator.
