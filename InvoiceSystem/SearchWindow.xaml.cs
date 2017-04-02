@@ -112,7 +112,7 @@ namespace InvoiceSystem
             }
             catch (Exception ex)
             {
-                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, `MethodInfo.GetCurrentMethod().Name, ex);
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
     }

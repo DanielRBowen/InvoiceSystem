@@ -14,7 +14,7 @@ namespace InvoiceSystem
         /// <summary>
         /// A unique ID for an invoice (InvoiceNum from database)
         /// </summary>
-        public int InvoiceID { get; set; }
+        public int InvoiceNum { get; set; }
 
 
         /// <summary>
