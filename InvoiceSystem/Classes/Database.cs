@@ -9,20 +9,25 @@ namespace InvoiceSystem.Classes
     /// <summary>
     /// Class used to access the database.
     /// </summary>
-	public class DataAccess
+	public class Database
     {
         /// <summary>
         /// Connection string to the database.
         /// </summary>
-        private string sConnectionString;
+        private string ConnectionString { get; }
 
 
         /// <summary>
         /// Constructor that sets the connection string to the database
         /// </summary>
-		public DataAccess()
+		public Database() :
+            this(@"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory() + "\\InvoiceDB.mdb")
         {
-            sConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory() + "\\InvoiceDB.mdb";
+        }
+
+        public Database(string connectiongstring)
+        {
+            ConnectionString = connectiongstring ?? throw new ArgumentNullException(nameof(connectiongstring));
         }
 
 
@@ -41,7 +46,7 @@ namespace InvoiceSystem.Classes
                 //Create a new DataSet
                 DataSet ds = new DataSet();
 
-                using (OleDbConnection conn = new OleDbConnection(sConnectionString))
+                using (OleDbConnection conn = new OleDbConnection(ConnectionString))
                 {
                     using (OleDbDataAdapter adapter = new OleDbDataAdapter())
                     {
@@ -84,7 +89,7 @@ namespace InvoiceSystem.Classes
                 //Holds the return value
                 object obj;
 
-                using (OleDbConnection conn = new OleDbConnection(sConnectionString))
+                using (OleDbConnection conn = new OleDbConnection(ConnectionString))
                 {
                     using (OleDbDataAdapter adapter = new OleDbDataAdapter())
                     {
@@ -132,7 +137,7 @@ namespace InvoiceSystem.Classes
                 //Number of rows affected
                 int iNumRows;
 
-                using (OleDbConnection conn = new OleDbConnection(sConnectionString))
+                using (OleDbConnection conn = new OleDbConnection(ConnectionString))
                 {
                     //Open the connection to the database
                     conn.Open();

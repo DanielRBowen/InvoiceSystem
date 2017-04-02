@@ -56,7 +56,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\Error.cs" />
-    <Compile Include="Classes\Item_Controller.cs" />
     <Compile Include="SearchWindow.xaml.cs">
       <DependentUpon>SearchWindow.xaml</DependentUpon>
     </Compile>
@@ -72,14 +71,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\ApplicationSQL.cs" />
-    <Compile Include="Classes\DataAccess.cs" />
+    <Compile Include="Classes\DataStore.cs" />
+    <Compile Include="Classes\Database.cs" />
     <Compile Include="ItemsDefinitionTableWindow.xaml.cs">
       <DependentUpon>ItemsDefinitionTableWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Invoice.cs" />
-    <Compile Include="Classes\Invoice_Controller.cs" />
-    <Compile Include="Classes\InvoiceSystemLogic.cs" />
+    <Compile Include="Classes\InvoiceService.cs" />
     <Compile Include="Classes\Item.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

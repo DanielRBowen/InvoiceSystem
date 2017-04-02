@@ -16,6 +16,6 @@ namespace InvoiceSystem
         /// <summary>
         /// Contains the logic for the application
         /// </summary>
-        internal static InvoiceSystemLogic InvoiceSystemLogic { get; set; }
+        internal static InvoiceService InvoiceService { get; set; }
     }
 }

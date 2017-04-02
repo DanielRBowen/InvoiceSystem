@@ -13,7 +13,7 @@ namespace InvoiceSystem
     /// Use Microsoft Access to run the queries ahead of time to make sure the queries give you the expected data and work correctly.  
     /// Your SQL statements should be tested and working.  Below is an example of a class/method that should be used as a guide for your code.
     /// </summary>
-    public class ApplicationSQL
+    public class DataStore
     {
         /// <summary>
         /// This SQL string gets all invoices from the database.
