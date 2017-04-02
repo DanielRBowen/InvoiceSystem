@@ -17,7 +17,7 @@ namespace InvoiceSystem
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void NotifyProperyChanged([CallerMemberName]string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        public void NotifyPropertyChanged([CallerMemberName]string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         private Invoice currentInvoice;
 
@@ -32,7 +32,7 @@ namespace InvoiceSystem
                 if (value != currentInvoice)
                 {
                     currentInvoice = value;
-                    NotifyProperyChanged();
+                    NotifyPropertyChanged();
                 }
             }
         }
@@ -50,7 +50,7 @@ namespace InvoiceSystem
                 if (value != isCurrentInvoiceSaved)
                 {
                     isCurrentInvoiceSaved = value;
-                    NotifyProperyChanged();
+                    NotifyPropertyChanged();
                 }
             }
         }
