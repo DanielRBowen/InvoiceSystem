@@ -32,7 +32,7 @@ namespace InvoiceSystem
             get
             {
                 float totalCharge = 0;
-                foreach (var item in InvoiceItems)
+                foreach (var item in InvoiceLineItems)
                 {
                     totalCharge += item.Cost;
                 }
