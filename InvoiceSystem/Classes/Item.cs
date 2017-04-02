@@ -16,10 +16,12 @@ namespace InvoiceSystem
         /// </summary>
         public string Name { get; set; }
 
+
         /// <summary>
         /// The cost of an item
         /// </summary>
         public float Cost { get; set; }
+
 
         /// <summary>
         /// The description of an item

@@ -40,6 +40,7 @@ namespace InvoiceSystem
             }
         }
 
+
         /// <summary>
         /// If a new invoice is created the user may enter data pertaining to that invoice.  
         /// An auto-generated number from the database will be given to the invoice as the invoice number.  
@@ -62,6 +63,7 @@ namespace InvoiceSystem
             }
         }
 
+
         /// <summary>
         /// Once all the items are entered the user can save the invoice.  
         /// This will lock the data in the invoice for viewing only.  
@@ -80,6 +82,7 @@ namespace InvoiceSystem
             }
         }
 
+
         /// <summary>
         /// Once all the items are entered the user can save the invoice.  
         /// This will lock the data in the invoice for viewing only.  
@@ -97,6 +100,7 @@ namespace InvoiceSystem
                 Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
+
 
         /// <summary>
         /// Opens up a search window
@@ -117,6 +121,7 @@ namespace InvoiceSystem
                 Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
+
 
         /// <summary>
         /// Opens up a new definition table window

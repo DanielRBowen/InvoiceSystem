@@ -45,6 +45,7 @@ namespace InvoiceSystem
             }
         }
 
+
         /// <summary>
         /// Handles the closing event.
         /// </summary>
@@ -62,6 +63,7 @@ namespace InvoiceSystem
                 Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
+
 
         /// <summary>
         /// Cancels the definition table window and returns to the main window.
@@ -83,6 +85,7 @@ namespace InvoiceSystem
             }
         }
 
+
         /// <summary>
         /// Adds an Item to the item definitions
         /// </summary>
@@ -100,6 +103,7 @@ namespace InvoiceSystem
             }
         }
 
+
         /// <summary>
         /// Edits an Item definition
         /// </summary>
@@ -116,6 +120,7 @@ namespace InvoiceSystem
                 Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
+
 
         /// <summary>
         /// Deletes an item

@@ -16,10 +16,12 @@ namespace InvoiceSystem
         /// </summary>
         public int InvoiceID { get; set; }
 
+
         /// <summary>
         /// The Date which the invoice was made
         /// </summary>
         public DateTime InvoiceDate { get; set; }
+
 
         /// <summary>
         /// The total charge that the invoice totaled
@@ -38,6 +40,7 @@ namespace InvoiceSystem
                 return totalCharge;
             }
         }
+
 
         /// <summary>
         /// The items sold

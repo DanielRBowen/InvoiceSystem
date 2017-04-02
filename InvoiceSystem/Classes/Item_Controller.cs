@@ -17,11 +17,13 @@ namespace InvoiceSystem
         /// </summary>
         private List<Item> ItemList { get; set; } = new List<Item>();
 
+
         /// <summary>
         /// Enumerator interface of items from the item list.
         /// </summary>
         /// <returns></returns>
         public IEnumerator<Item> GetEnumerator() => ItemList.GetEnumerator();
+
 
         /// <summary>
         /// The matching return type of IEnumerator.
