@@ -50,7 +50,7 @@ namespace InvoiceSystem.Classes
                 //Create a new DataSet
                 DataSet ds = new DataSet();
 
-                using (OleDbConnection conn = new OleDbConnection(ConnectionString))
+                using (OleDbConnection conn = new OleDbConnection(sConnectionString))
                 {
                     using (OleDbDataAdapter adapter = new OleDbDataAdapter())
                     {
@@ -93,7 +93,7 @@ namespace InvoiceSystem.Classes
                 //Holds the return value
                 object obj;
 
-                using (OleDbConnection conn = new OleDbConnection(ConnectionString))
+                using (OleDbConnection conn = new OleDbConnection(sConnectionString))
                 {
                     using (OleDbDataAdapter adapter = new OleDbDataAdapter())
                     {
@@ -132,7 +132,7 @@ namespace InvoiceSystem.Classes
                 //Number of rows affected
                 int iNumRows;
 
-                using (OleDbConnection conn = new OleDbConnection(ConnectionString))
+                using (OleDbConnection conn = new OleDbConnection(sConnectionString))
                 {
                     //Open the connection to the database
                     conn.Open();

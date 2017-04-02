@@ -33,7 +33,7 @@ namespace InvoiceSystem
 
 
         /// <summary>
-        /// This is the current invoice that the user has either selected from the search window, created, or is in editing.
+        /// This is the current invoice that the user has either selected from the search window, created, or is editing.
         /// </summary>
         public Invoice CurrentInvoice
         {
