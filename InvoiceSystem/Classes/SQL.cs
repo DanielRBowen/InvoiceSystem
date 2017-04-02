@@ -13,7 +13,7 @@ namespace InvoiceSystem
     /// Use Microsoft Access to run the queries ahead of time to make sure the queries give you the expected data and work correctly.  
     /// Your SQL statements should be tested and working.  Below is an example of a class/method that should be used as a guide for your code.
     /// </summary>
-    public class DataStore
+    public static class SQL
     {
         /// <summary>
         /// This SQL string gets all invoices from the database.
@@ -78,7 +78,7 @@ namespace InvoiceSystem
             try
             {
                 // NOT COMPLETE Just a starting point
-                return "INSERT INTO Invoice(InvoiceDate, TotalCharge, Items) VALUES(" + invoice.InvoiceDate + "," + invoice.TotalCharge + "," + invoice.InvoiceItems + ")";
+                return "INSERT INTO Invoice(InvoiceDate, TotalCharge) VALUES(#" + invoice.InvoiceDate + "#," + invoice.TotalCharge + "," + ")";
             }
             catch (Exception ex)
             {
@@ -117,6 +117,64 @@ namespace InvoiceSystem
             {
                 // NOT COMPLETE just a starting point
                 return "UPDATE Invoice SET something = " + updateVal + "WHERE Invoice_ID = " + sInvoiceID;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " => " + ex.Message);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Returns a SQL statement to insert an Item into the ItemDesc Table.
+        /// </summary>
+        /// <param name="item">item to be inserted</param>
+        /// <returns>string</returns>
+        public static string insertItem(Item item)
+        {
+            try
+            {
+                return "INSERT INTO ItemDesc (ItemCode, ItemDesc, Cost) Values ('" + item.ItemCode + "','" + item.ItemDesc + "','" + item.Cost + "')";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " => " + ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Returns a SQL statement to delete a Item in the ItemDesc table.
+        /// </summary>
+        /// <param name="sItemCode">invoice ID</param>
+        /// <returns>string</returns>
+        public static string deleteItem(string sItemCode)
+        {
+            try
+            {
+                return "DELETE FROM ItemDesc WHERE ItemCode = '" + sItemCode + "'";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " => " + ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Returns a SQL statement to update an Item given ItemCode.
+        /// </summary>
+        /// <param name="sOldItemCode">an Item's old code</param>
+        /// <param name="sNewItemCode">an Item's new code</param>
+        /// <param name="sNewItemDesc">an Item's new description</param>
+        /// <param name="sNewItemCost">an Item's new cost</param>
+        /// <returns>string</returns>
+        public static string updateItem(string sOldItemCode, string sNewItemCode, string sNewItemDesc, string sNewItemCost)
+        {
+            try
+            {
+                return "UPDATE ItemDesc SET ItemCode = '" + sNewItemCode + "', ItemDesc = '" + sNewItemDesc + "', Cost = '" + sNewItemCost + "' WHERE ItemCode='" + sOldItemCode + "'";
             }
             catch (Exception ex)
             {

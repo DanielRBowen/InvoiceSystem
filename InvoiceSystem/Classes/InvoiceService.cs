@@ -11,15 +11,26 @@ namespace InvoiceSystem
     public class InvoiceService : INotifyPropertyChanged
     {
         /// <summary>
-        /// Contains the SQL statements for managing the invoice data
+        /// 
         /// </summary>
-        private DataStore DataStore { get; } = new DataStore();
-
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="propertyName"></param>
         public void NotifyPropertyChanged([CallerMemberName]string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        /// <summary>
+        /// 
+        /// </summary>
         private Invoice currentInvoice;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool isCurrentInvoiceSaved;
+
 
         /// <summary>
         /// This is the current invoice that the user has either selected from the search window, created, or is in editing.
@@ -37,7 +48,6 @@ namespace InvoiceSystem
             }
         }
 
-        private bool isCurrentInvoiceSaved;
 
         /// <summary>
         /// The data within the invoice will be locked if the invoice is saved. It will be in editing while it isn't. Controls will be enabled and diabled accordingly.
@@ -55,6 +65,7 @@ namespace InvoiceSystem
             }
         }
 
+
         /// <summary>
         /// Contains the definiton table items that will be displayed in the search items combo boxes and the definition table grid
         /// Can add, edit, and delete items within the definition table window.
@@ -62,12 +73,14 @@ namespace InvoiceSystem
         /// </summary>
         public ObservableCollection<Item> Items { get; set; }
 
+
         /// <summary>
         /// Contains all the invoices found within the search window datagrid can add to in the main window 
         /// and can edit or delete current ones from the search window passed to the main window
         /// Must retrieve and update from the database accordingly.
         /// </summary>
         public ObservableCollection<Invoice> Invoices { get; set; }
+
 
         /// <summary>
         /// Default constructor when creating a new invoice system.

@@ -71,7 +71,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\DataStore.cs" />
+    <Compile Include="Classes\SQL.cs" />
     <Compile Include="Classes\Database.cs" />
     <Compile Include="ItemsDefinitionTableWindow.xaml.cs">
       <DependentUpon>ItemsDefinitionTableWindow.xaml</DependentUpon>

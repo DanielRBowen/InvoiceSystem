@@ -14,18 +14,18 @@ namespace InvoiceSystem
         /// <summary>
         /// The name of the item.
         /// </summary>
-        public string Name { get; set; }
+        public string ItemCode { get; set; }
+
+
+        /// <summary>
+        /// The description of an item
+        /// </summary>
+        public string ItemDesc { get; set; }
 
 
         /// <summary>
         /// The cost of an item
         /// </summary>
         public float Cost { get; set; }
-
-
-        /// <summary>
-        /// The description of an item
-        /// </summary>
-        public string Description { get; set; }
     }
 }

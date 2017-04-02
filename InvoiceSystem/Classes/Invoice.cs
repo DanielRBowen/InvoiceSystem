@@ -12,7 +12,7 @@ namespace InvoiceSystem
     public class Invoice
     {
         /// <summary>
-        /// A unique ID for an invoice
+        /// A unique ID for an invoice (InvoiceNum from database)
         /// </summary>
         public int InvoiceID { get; set; }
 
@@ -45,6 +45,6 @@ namespace InvoiceSystem
         /// <summary>
         /// The items sold
         /// </summary>
-        public List<Item> InvoiceItems { get; set; }
+        public List<Item> InvoiceLineItems { get; set; }
     }
 }

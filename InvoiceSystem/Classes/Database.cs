@@ -14,20 +14,24 @@ namespace InvoiceSystem.Classes
         /// <summary>
         /// Connection string to the database.
         /// </summary>
-        private string ConnectionString { get; }
+        private string sConnectionString { get; }
 
 
         /// <summary>
         /// Constructor that sets the connection string to the database
         /// </summary>
-		public Database() :
-            this(@"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory() + "\\InvoiceDB.mdb")
+		public Database() : this(@"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory() + "\\Invoice.mdb")
         {
         }
 
-        public Database(string connectiongstring)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connectiongString"></param>
+        public Database(string connectiongString)
         {
-            ConnectionString = connectiongstring ?? throw new ArgumentNullException(nameof(connectiongstring));
+            sConnectionString = connectiongString ?? throw new ArgumentNullException(nameof(connectiongString));
         }
 
 
@@ -106,17 +110,8 @@ namespace InvoiceSystem.Classes
                     }
                 }
 
-                //See if the object is null
-                if (obj == null)
-                {
-                    //Return a blank
-                    return "";
-                }
-                else
-                {
-                    //Return the value
-                    return obj.ToString();
-                }
+                // See if the object is null, if it is return blank else return object toString
+                return (obj == null) ? "" : obj.ToString();
             }
             catch (Exception ex)
             {
