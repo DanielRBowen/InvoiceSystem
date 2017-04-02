@@ -56,7 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\Error.cs" />
-    <Compile Include="Classes\ItemManager.cs" />
+    <Compile Include="Classes\Item_Controller.cs" />
     <Compile Include="SearchWindow.xaml.cs">
       <DependentUpon>SearchWindow.xaml</DependentUpon>
     </Compile>
@@ -78,7 +78,7 @@
       <DependentUpon>ItemsDefinitionTableWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Invoice.cs" />
-    <Compile Include="Classes\InvoiceManager.cs" />
+    <Compile Include="Classes\Invoice_Controller.cs" />
     <Compile Include="Classes\InvoiceSystemLogic.cs" />
     <Compile Include="Classes\Item.cs" />
     <Compile Include="MainWindow.xaml.cs">
