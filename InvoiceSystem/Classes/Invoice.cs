@@ -22,7 +22,7 @@ namespace InvoiceSystem
         public DateTime InvoiceDate { get; set; }
 
         /// <summary>
-        /// The total Charge that the invoice totaled
+        /// The total charge that the invoice totaled
         /// Should be all the items in the list added up
         /// </summary>
         public float TotalCharge
