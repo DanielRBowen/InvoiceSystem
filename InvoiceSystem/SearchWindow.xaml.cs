@@ -45,19 +45,6 @@ namespace InvoiceSystem
                 Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
-        
-        private void FillComboBoxes()
-        {
-            var invoiceNumbers = App.InvoiceService.Invoices;
-            InvoiceNumberComboBox.ItemsSource = invoiceNumbers;
-            //InvoiceNumberComboBox.SelectedItem = invoiceNumbers.FirstOrDefault(invoiceNumber => invoiceNumber == App.Current)
-
-            var invoiceDates = App.InvoiceService.Invoices;
-            InvoiceDateComboBox.ItemsSource = invoiceDates;
-
-            var invoiceTotalCharges = App.InvoiceService.Invoices;
-            TotalChargeComboBox.ItemsSource = invoiceTotalCharges;
-        }
 
         /// <summary>
         /// Handles the closing event.

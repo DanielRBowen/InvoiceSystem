@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace InvoiceSystem
 {
     /// <summary>
-    /// An item that can be on an invoice
+    /// An item that can be on an invoice. (ItemDesc)
     /// </summary>
     public class Item
     {
