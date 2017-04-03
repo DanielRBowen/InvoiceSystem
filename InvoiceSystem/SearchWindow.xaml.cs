@@ -1,4 +1,5 @@
 ﻿using InvoiceSystem.Classes;
+using InvoiceSystem.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,6 +37,8 @@ namespace InvoiceSystem
             try
             {
                 InitializeComponent();
+
+                DataContext = new SearchViewModel();
             }
             catch (Exception ex)
             {
@@ -43,6 +46,18 @@ namespace InvoiceSystem
             }
         }
         
+        private void FillComboBoxes()
+        {
+            var invoiceNumbers = App.InvoiceService.Invoices;
+            InvoiceNumberComboBox.ItemsSource = invoiceNumbers;
+            //InvoiceNumberComboBox.SelectedItem = invoiceNumbers.FirstOrDefault(invoiceNumber => invoiceNumber == App.Current)
+
+            var invoiceDates = App.InvoiceService.Invoices;
+            InvoiceDateComboBox.ItemsSource = invoiceDates;
+
+            var invoiceTotalCharges = App.InvoiceService.Invoices;
+            TotalChargeComboBox.ItemsSource = invoiceTotalCharges;
+        }
 
         /// <summary>
         /// Handles the closing event.
@@ -73,8 +88,13 @@ namespace InvoiceSystem
             try
             {
                 // Set Current Invoice in App.InvoiceSystemLogic
-                //App.InvoiceSystemLogic.CurrentInvoice =
-                Close();
+                var invoiceViewModel = (InvoiceViewModel)InvoiceDataGrid.SelectedItem;
+
+                if (invoiceViewModel != null)
+                {
+                    App.InvoiceService.CurrentInvoice = invoiceViewModel.Invoice;
+                    Close();
+                }
             }
             catch (Exception ex)
             {
@@ -108,7 +128,9 @@ namespace InvoiceSystem
         {
             try
             {
-                Close();
+                InvoiceNumberComboBox.SelectedValue = null;
+                InvoiceDateComboBox.SelectedValue = null;
+                TotalChargeComboBox.SelectedValue = null;
             }
             catch (Exception ex)
             {

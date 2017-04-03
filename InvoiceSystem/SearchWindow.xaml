@@ -53,15 +53,15 @@
                 <Label Content="By Date:" FontSize="15" Grid.Row="2"/>
                 <Label Content="By Total Charge:" FontSize="15" Grid.Row="4"/>
 
-                <ComboBox Name="InvoiceNumberComboBox" Grid.Column="2"/>
-                <ComboBox Name="InvoiceDateComboBox" Grid.Row="2" Grid.Column="2"/>
-                <ComboBox Name="TotalChargeComboBox" Grid.Row="4" Grid.Column="2"/>
+                <ComboBox Name="InvoiceNumberComboBox" ItemsSource="{Binding InvoiceNumbers}" DisplayMemberPath="Text" SelectedValuePath="Value" SelectedValue="{Binding SelectedInvoiceNumber}" IsEditable="False"  Grid.Column="2"/>
+                <ComboBox Name="InvoiceDateComboBox" Grid.Row="2" ItemsSource="{Binding InvoiceDates}" DisplayMemberPath="Text" SelectedValuePath="Value" SelectedValue="{Binding SelectedInvoiceDate}" IsEditable="False" Grid.Column="2"/>
+                <ComboBox Name="TotalChargeComboBox" Grid.Row="4" ItemsSource="{Binding TotalCharges}" DisplayMemberPath="Text" SelectedValuePath="Value" SelectedValue="{Binding SelectedTotalCharge}" IsEditable="False"  Grid.Column="2"/>
             </Grid>
         </GroupBox>
 
         <!--Invoices-->
-        <DataGrid Name="InvoiceDataGrid" Grid.Row="4" ItemsSource="{Binding Invoices}" AutoGenerateColumns="False" CanUserAddRows="False" 
-                  CanUserDeleteRows="False" SelectionMode="Single" EnableRowVirtualization="True" EnableColumnVirtualization="True" SelectionUnit="FullRow" GridLinesVisibility="None">
+        <DataGrid Name="InvoiceDataGrid" Grid.Row="4" ItemsSource="{Binding FilteredInvoices}" AutoGenerateColumns="False" CanUserAddRows="False" 
+                  CanUserDeleteRows="False" SelectionMode="Single" EnableRowVirtualization="True" EnableColumnVirtualization="True" SelectionUnit="FullRow" GridLinesVisibility="None" Grid.RowSpan="3">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Invoice Number" Binding="{Binding InvoiceNum}"/>
                 <DataGridTextColumn Header="Date" Binding="{Binding InvoiceDate}"/>

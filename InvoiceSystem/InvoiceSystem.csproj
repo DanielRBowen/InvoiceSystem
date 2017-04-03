@@ -55,10 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Classes\Error.cs" />
+    <Compile Include="Domain\Error.cs" />
+    <Compile Include="ViewModels\InvoiceNumberViewModel.cs" />
+    <Compile Include="ViewModels\TotalChargeViewModel.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="SearchWindow.xaml.cs">
       <DependentUpon>SearchWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\InvoiceDateViewModel.cs" />
+    <Compile Include="ViewModels\InvoiceViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
     <Page Include="ItemsDefinitionTableWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -71,14 +77,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\SQL.cs" />
-    <Compile Include="Classes\Database.cs" />
+    <Compile Include="Domain\SQL.cs" />
+    <Compile Include="Domain\Database.cs" />
     <Compile Include="ItemsDefinitionTableWindow.xaml.cs">
       <DependentUpon>ItemsDefinitionTableWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Invoice.cs" />
-    <Compile Include="Classes\InvoiceService.cs" />
-    <Compile Include="Classes\Item.cs" />
+    <Compile Include="Domain\Invoice.cs" />
+    <Compile Include="Domain\InvoiceService.cs" />
+    <Compile Include="Domain\Item.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -141,6 +147,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Models\" />
+    <Folder Include="Windows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

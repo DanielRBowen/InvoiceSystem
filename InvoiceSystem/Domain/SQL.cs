@@ -1,5 +1,9 @@
-﻿using System;
+﻿using InvoiceSystem.Classes;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Reflection;
+using System.Linq;
 
 namespace InvoiceSystem
 {
@@ -180,6 +184,32 @@ namespace InvoiceSystem
             {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " => " + ex.Message);
             }
+        }
+
+        public static IList<Invoice> LoadInvoices()
+        {
+            var sql = @"
+SELECT InvoiceNum, InvoiceDate, TotalCharge
+FROM Invoices";
+
+            var count = 0;
+            var result = new Database().ExecuteSQLStatement(sql, ref count);
+            var table = result.Tables[0];
+            var columns = table.Columns;
+            var invoiceNumColumn = columns["InvoiceNum"];
+            var invoiceDateColumn = columns["InvoiceDate"];
+            var totalChargeColumn = columns["TotalCharge"];
+
+            var invoicesQuery =
+               from DataRow row in result.Tables[0].Rows
+               select new Invoice
+               {
+                   InvoiceNum = (int)row[invoiceNumColumn],
+                   InvoiceDate = (DateTime)row[invoiceDateColumn],
+                   TotalCharge = (decimal)row[totalChargeColumn]
+               };
+
+            return invoicesQuery.ToList();
         }
     }
 }

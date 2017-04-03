@@ -27,19 +27,7 @@ namespace InvoiceSystem
         /// The total charge that the invoice totaled
         /// Should be all the items in the list added up
         /// </summary>
-        public float TotalCharge
-        {
-            get
-            {
-                float totalCharge = 0;
-                foreach (var item in InvoiceLineItems)
-                {
-                    totalCharge += item.Cost;
-                }
-
-                return totalCharge;
-            }
-        }
+        public decimal TotalCharge { get; set; }
 
 
         /// <summary>

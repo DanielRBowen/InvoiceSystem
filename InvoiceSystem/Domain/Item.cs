@@ -26,6 +26,6 @@ namespace InvoiceSystem
         /// <summary>
         /// The cost of an item
         /// </summary>
-        public float Cost { get; set; }
+        public decimal Cost { get; set; }
     }
 }
