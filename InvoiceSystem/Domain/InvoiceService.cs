@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using InvoiceSystem.ViewModels;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -24,7 +25,7 @@ namespace InvoiceSystem
         /// <summary>
         /// 
         /// </summary>
-        private Invoice currentInvoice;
+        private InvoiceViewModel currentInvoiceViewModel;
 
         /// <summary>
         /// 
@@ -35,14 +36,14 @@ namespace InvoiceSystem
         /// <summary>
         /// This is the current invoice that the user has either selected from the search window, created, or is editing.
         /// </summary>
-        public Invoice CurrentInvoice
+        public InvoiceViewModel CurrentInvoice
         {
-            get => currentInvoice;
+            get => currentInvoiceViewModel;
             set
             {
-                if (value != currentInvoice)
+                if (value != currentInvoiceViewModel)
                 {
-                    currentInvoice = value;
+                    currentInvoiceViewModel = value;
                     NotifyPropertyChanged();
                 }
             }
