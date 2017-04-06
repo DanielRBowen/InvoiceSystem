@@ -78,7 +78,7 @@
                 <DatePicker Name="InvoiceDatePicker" Grid.Column="4"/>
 
                 <Button Name="AddItemButton" Content="Add Item" Grid.Row="2"/>
-                <ComboBox Name="ItemsComboBox" Grid.Row="2" Grid.Column="2"/>
+                <ComboBox Name="ItemsComboBox" Grid.Row="2" Grid.Column="2" />
                 <TextBox Name="ItemCostTextBox" Text="$9999.99" Grid.Row="2" Grid.Column="4" IsReadOnly="True"/>
 
                 <!--Invoice Items-->
