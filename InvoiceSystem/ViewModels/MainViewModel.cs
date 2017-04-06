@@ -1,6 +1,8 @@
-﻿using System;
+﻿using InvoiceSystem.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,9 +35,19 @@ namespace InvoiceSystem.ViewModels
             }
         }
 
+        /// <summary>
+        /// MainViewModel constructor to set things up
+        /// </summary>
         public MainViewModel()
         {
-            //CurrentInvoiceItems = App.InvoiceService.CurrentInvoice.InvoiceLineItems;
+            try
+            {
+                //CurrentInvoiceItems = App.InvoiceService.CurrentInvoice.InvoiceLineItems;
+            }
+            catch (Exception ex)
+            {
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
+            }  
         }
     }
 }

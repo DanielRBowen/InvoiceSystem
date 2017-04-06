@@ -1,7 +1,9 @@
-﻿using System;
+﻿using InvoiceSystem.Classes;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +31,14 @@ namespace InvoiceSystem.ViewModels
         /// <param name="item"></param>
         public ItemViewModel(Item item)
         {
-            this.item = item;
+            try
+            {
+                this.item = item;
+            }
+            catch (Exception ex)
+            {
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
+            }
         }
 
         /// <summary>
