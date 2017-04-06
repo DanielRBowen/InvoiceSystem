@@ -1,8 +1,8 @@
-﻿using System;
+﻿using InvoiceSystem.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace InvoiceSystem.ViewModels
 {
@@ -32,9 +32,9 @@ namespace InvoiceSystem.ViewModels
                 var items = SQL.LoadItems();
                 AllItems = items.Select(item => new ItemViewModel(item)).ToList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
     }

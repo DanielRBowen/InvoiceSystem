@@ -1,4 +1,5 @@
 ﻿using InvoiceSystem.Classes;
+using InvoiceSystem.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,6 +30,7 @@ namespace InvoiceSystem
             try
             {
                 InitializeComponent();
+                DataContext = new ItemsDefinitionViewModel();
             }
             catch (Exception ex)
             {

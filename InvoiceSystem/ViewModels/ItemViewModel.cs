@@ -46,9 +46,5 @@ namespace InvoiceSystem.ViewModels
         /// The cost of the item
         /// </summary>
         public string Cost => item.Cost.ToString(NumberFormatInfo.CurrentInfo);
-
-
-
-
     }
 }

@@ -19,6 +19,8 @@ namespace InvoiceSystem
     /// </summary>
     public static class SQL
     {
+        #region String SQL
+
         /// <summary>
         /// This SQL string gets all invoices from the database.
         /// </summary>
@@ -128,8 +130,7 @@ namespace InvoiceSystem
             }
         }
 
-
-
+        
         /// <summary>
         /// Returns a SQL statement to insert an Item into the ItemDesc Table.
         /// </summary>
@@ -185,6 +186,8 @@ namespace InvoiceSystem
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " => " + ex.Message);
             }
         }
+
+        #endregion
 
         /// <summary>
         /// Loads the invoices from the database and returns the data as a IList of Invoices
