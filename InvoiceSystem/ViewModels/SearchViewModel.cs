@@ -9,16 +9,31 @@ using System.Windows.Controls;
 
 namespace InvoiceSystem.ViewModels
 {
+    /// <summary>
+    /// The Search viewmodel for the search window
+    /// </summary>
     public class SearchViewModel : ViewModel
     {
+        /// <summary>
+        /// All of the Invoice Numbers populated in the InvoiceNumbersComboBox
+        /// </summary>
         public ObservableCollection<InvoiceNumberViewModel> InvoiceNumbers { get; }
 
+        /// <summary>
+        /// All of the Invoice Dates populated in the InvoiceDateComboBox
+        /// </summary>
         public ObservableCollection<InvoiceDateViewModel> InvoiceDates { get; }
 
+        /// <summary>
+        /// All of the Total charges populated in the TotalCharges Combobox
+        /// </summary>
         public ObservableCollection<TotalChargeViewModel> TotalCharges { get; }
 
         private int? selectedInvoiceNumber;
 
+        /// <summary>
+        /// The Selected Invoice Number of the InvoiceNumbersComboBox
+        /// </summary>
         public int? SelectedInvoiceNumber
         {
             get => selectedInvoiceNumber;
@@ -35,6 +50,9 @@ namespace InvoiceSystem.ViewModels
 
         private DateTime? selectedInvoiceDate;
 
+        /// <summary>
+        /// The Selected Invoice Date of the InvoiceDatesComboBox
+        /// </summary>
         public DateTime? SelectedInvoiceDate
         {
             get => selectedInvoiceDate;
@@ -51,6 +69,9 @@ namespace InvoiceSystem.ViewModels
 
         private decimal? selectedTotalCharge;
 
+        /// <summary>
+        /// The selected Total Charge of the TotalChargeComboBox
+        /// </summary>
         public decimal? SelectedTotalCharge
         {
             get => selectedTotalCharge;
@@ -69,6 +90,10 @@ namespace InvoiceSystem.ViewModels
 
         private IList<InvoiceViewModel> filteredInvoices;
 
+        /// <summary>
+        /// The filter invoices.
+        /// Notifies that the property has changed and updates the view accordingly.
+        /// </summary>
         public IList<InvoiceViewModel> FilteredInvoices
         {
             get => filteredInvoices;
@@ -82,6 +107,10 @@ namespace InvoiceSystem.ViewModels
             }
         }
 
+        /// <summary>
+        /// Apply filters and changes the datagrid accordingly to its data bindings. 
+        /// Is called when ever the NotifyPropertyChanged method is called and the constructor is then called again.
+        /// </summary>
         private void ApplyFilters()
         {
             var query = AllInvoices.AsEnumerable();
@@ -118,6 +147,10 @@ namespace InvoiceSystem.ViewModels
             return;
         }
 
+        /// <summary>
+        /// The constructor of the Search ViewModel which is the data context of the Search Window
+        /// Loads the invoices from the database, creates the ViewModel Observable collections from the invoices, then Applies the filters.
+        /// </summary>
         public SearchViewModel()
         {
             var invoices = SQL.LoadInvoices();

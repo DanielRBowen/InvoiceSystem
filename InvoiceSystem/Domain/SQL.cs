@@ -23,7 +23,7 @@ namespace InvoiceSystem
         /// This SQL string gets all invoices from the database.
         /// </summary>
         /// <returns></returns>
-        public static string getAllInvoices()
+        public static string GetAllInvoices()
         {
             try
             {
@@ -186,6 +186,10 @@ namespace InvoiceSystem
             }
         }
 
+        /// <summary>
+        /// Loads the invoices from the database and returns the data as a IList of Invoices
+        /// </summary>
+        /// <returns></returns>
         public static IList<Invoice> LoadInvoices()
         {
             var sql = @"
