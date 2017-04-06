@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using InvoiceSystem.ViewModels;
 
 namespace InvoiceSystem
 {
@@ -33,6 +34,7 @@ namespace InvoiceSystem
             try
             {
                 InitializeComponent();
+                DataContext = new MainViewModel();
             }
             catch (Exception ex)
             {
