@@ -22,7 +22,7 @@ namespace InvoiceSystem.ViewModels
         }
 
         /// <summary>
-        /// The text of the viewmodel, binds the the value of the data 
+        /// The text of the viewmodel, binds the the value of the data
         /// to the text of the control it is bound.
         /// </summary>
         public string Text { get; }
