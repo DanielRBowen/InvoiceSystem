@@ -11,6 +11,31 @@ namespace InvoiceSystem.ViewModels
     /// </summary>
     public class MainViewModel : ViewModel
     {
-        public IList<ItemViewModel>
+        /// <summary>
+        /// List of items 
+        /// </summary>
+        private IList<ItemViewModel> currentInvoiceItems;
+
+        /// <summary>
+        /// The current items invoice
+        /// Notifies that the property has changed and updates the view accordingly.
+        /// </summary>
+        public IList<ItemViewModel> CurrentInvoiceItems
+        {
+            get => currentInvoiceItems;
+            private set
+            {
+                if (value != currentInvoiceItems)
+                {
+                    currentInvoiceItems = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public MainViewModel()
+        {
+            //CurrentInvoiceItems = App.InvoiceService.CurrentInvoice.InvoiceLineItems;
+        }
     }
 }

@@ -19,6 +19,8 @@ namespace InvoiceSystem
     /// </summary>
     public static class SQL
     {
+        #region String SQL
+
         /// <summary>
         /// This SQL string gets all invoices from the database.
         /// </summary>
@@ -128,8 +130,7 @@ namespace InvoiceSystem
             }
         }
 
-
-
+        
         /// <summary>
         /// Returns a SQL statement to insert an Item into the ItemDesc Table.
         /// </summary>
@@ -186,15 +187,15 @@ namespace InvoiceSystem
             }
         }
 
+        #endregion
+
         /// <summary>
         /// Loads the invoices from the database and returns the data as a IList of Invoices
         /// </summary>
         /// <returns></returns>
         public static IList<Invoice> LoadInvoices()
         {
-            var sql = @"
-SELECT InvoiceNum, InvoiceDate, TotalCharge
-FROM Invoices";
+            var sql = @"SELECT InvoiceNum, InvoiceDate, TotalCharge FROM Invoices";
 
             var count = 0;
             var result = new Database().ExecuteSQLStatement(sql, ref count);
@@ -214,6 +215,35 @@ FROM Invoices";
                };
 
             return invoicesQuery.ToList();
+        }
+
+
+        /// <summary>
+        /// Get all items from database.
+        /// </summary>
+        /// <returns></returns>
+        public static IList<Item> LoadItems()
+        {
+            var sql = @"SELECT * FROM ItemDesc";
+
+            var count = 0;
+            var result = new Database().ExecuteSQLStatement(sql, ref count);
+            var table = result.Tables[0];
+            var columns = table.Columns;
+            var itemCodeColumn = columns["ItemCode"];
+            var itemDescColumn = columns["ItemDesc"];
+            var costColumn = columns["Cost"];
+
+            var itemsQuery =
+               from DataRow row in result.Tables[0].Rows
+               select new Item
+               {
+                   ItemCode = (string)row[itemCodeColumn],
+                   ItemDesc = (string)row[itemDescColumn],
+                   Cost =     (decimal)row[costColumn]
+               };
+
+            return itemsQuery.ToList();
         }
     }
 }

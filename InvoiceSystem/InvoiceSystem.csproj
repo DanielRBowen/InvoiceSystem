@@ -58,6 +58,7 @@
     <Compile Include="Domain\Error.cs" />
     <Compile Include="Models\LineItem.cs" />
     <Compile Include="ViewModels\InvoiceNumberViewModel.cs" />
+    <Compile Include="ViewModels\ItemsDefinitionViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\TotalChargeViewModel.cs" />
