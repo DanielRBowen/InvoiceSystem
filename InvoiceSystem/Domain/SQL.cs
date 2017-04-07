@@ -204,26 +204,33 @@ namespace InvoiceSystem
         /// <returns></returns>
         public static IList<Invoice> LoadAllInvoices()
         {
-            var sql = @"SELECT InvoiceNum, InvoiceDate, TotalCharge FROM Invoices";
+            try
+            {
+                var sql = @"SELECT InvoiceNum, InvoiceDate, TotalCharge FROM Invoices";
 
-            var count = 0;
-            var result = new Database().ExecuteSQLStatement(sql, ref count);
-            var table = result.Tables[0];
-            var columns = table.Columns;
-            var invoiceNumColumn = columns["InvoiceNum"];
-            var invoiceDateColumn = columns["InvoiceDate"];
-            var totalChargeColumn = columns["TotalCharge"];
+                var count = 0;
+                var result = new Database().ExecuteSQLStatement(sql, ref count);
+                var table = result.Tables[0];
+                var columns = table.Columns;
+                var invoiceNumColumn = columns["InvoiceNum"];
+                var invoiceDateColumn = columns["InvoiceDate"];
+                var totalChargeColumn = columns["TotalCharge"];
 
-            var invoicesQuery =
-               from DataRow row in result.Tables[0].Rows
-               select new Invoice
-               {
-                   InvoiceNum = (int)row[invoiceNumColumn],
-                   InvoiceDate = (DateTime)row[invoiceDateColumn],
-                   TotalCharge = (decimal)row[totalChargeColumn]
-               };
+                var invoicesQuery =
+                   from DataRow row in result.Tables[0].Rows
+                   select new Invoice
+                   {
+                       InvoiceNum = (int)row[invoiceNumColumn],
+                       InvoiceDate = (DateTime)row[invoiceDateColumn],
+                       TotalCharge = (decimal)row[totalChargeColumn]
+                   };
 
-            return invoicesQuery.ToList();
+                return invoicesQuery.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
 
@@ -233,26 +240,33 @@ namespace InvoiceSystem
         /// <returns></returns>
         public static IList<Item> LoadAllItems()
         {
-            var sql = @"SELECT * FROM ItemDesc";
+            try
+            {
+                var sql = @"SELECT * FROM ItemDesc";
 
-            var count = 0;
-            var result = new Database().ExecuteSQLStatement(sql, ref count);
-            var table = result.Tables[0];
-            var columns = table.Columns;
-            var itemCodeColumn = columns["ItemCode"];
-            var itemDescColumn = columns["ItemDesc"];
-            var costColumn = columns["Cost"];
+                var count = 0;
+                var result = new Database().ExecuteSQLStatement(sql, ref count);
+                var table = result.Tables[0];
+                var columns = table.Columns;
+                var itemCodeColumn = columns["ItemCode"];
+                var itemDescColumn = columns["ItemDesc"];
+                var costColumn = columns["Cost"];
 
-            var itemsQuery =
-               from DataRow row in result.Tables[0].Rows
-               select new Item
-               {
-                   ItemCode = (string)row[itemCodeColumn],
-                   ItemDesc = (string)row[itemDescColumn],
-                   Cost = (decimal)row[costColumn]
-               };
+                var itemsQuery =
+                   from DataRow row in result.Tables[0].Rows
+                   select new Item
+                   {
+                       ItemCode = (string)row[itemCodeColumn],
+                       ItemDesc = (string)row[itemDescColumn],
+                       Cost = (decimal)row[costColumn]
+                   };
 
-            return itemsQuery.ToList();
+                return itemsQuery.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -261,26 +275,33 @@ namespace InvoiceSystem
         /// <returns></returns>
         public static IList<LineItem> LoadLineItems(Invoice invoice)
         {
-            var sql = $"SELECT * FROM LineItems WHERE {invoice.InvoiceNum} = InvoiceNum";
+            try
+            {
+                var sql = $"SELECT * FROM LineItems WHERE {invoice.InvoiceNum} = InvoiceNum";
 
-            var count = 0;
-            var result = new Database().ExecuteSQLStatement(sql, ref count);
-            var table = result.Tables[0];
-            var columns = table.Columns;
-            var invoiceNumColumn = columns["InvoiceNum"];
-            var lineItemNumColumn = columns["LineItemNum"];
-            var itemCodeColumn = columns["ItemCode"];
+                var count = 0;
+                var result = new Database().ExecuteSQLStatement(sql, ref count);
+                var table = result.Tables[0];
+                var columns = table.Columns;
+                var invoiceNumColumn = columns["InvoiceNum"];
+                var lineItemNumColumn = columns["LineItemNum"];
+                var itemCodeColumn = columns["ItemCode"];
 
-            var lineItemsQuery =
-               from DataRow row in result.Tables[0].Rows
-               select new LineItem
-               {
-                   InvoiceNumber = (int)row[invoiceNumColumn],
-                   LineItemNumber = (int)row[lineItemNumColumn],
-                   ItemCode = (string)row[itemCodeColumn]
-               };
+                var lineItemsQuery =
+                   from DataRow row in result.Tables[0].Rows
+                   select new LineItem
+                   {
+                       InvoiceNumber = (int)row[invoiceNumColumn],
+                       LineItemNumber = (int)row[lineItemNumColumn],
+                       ItemCode = (string)row[itemCodeColumn]
+                   };
 
-            return lineItemsQuery.ToList();
+                return lineItemsQuery.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -290,29 +311,41 @@ namespace InvoiceSystem
         /// <returns></returns>
         internal static Item LoadItem(LineItem lineItem)
         {
-            var sql = 
+            try
+            {
+                var sql =
                 $"SELECT * FROM ItemDesc WHERE '{lineItem.ItemCode}' = ItemCode";
 
-            var count = 0;
-            var result = new Database().ExecuteSQLStatement(sql, ref count);
-            var table = result.Tables[0];
-            var columns = table.Columns;
-            var itemCodeColumn = columns["ItemCode"];
-            var itemDescColumn = columns["ItemDesc"];
-            var costColumn = columns["Cost"];
+                var count = 0;
+                var result = new Database().ExecuteSQLStatement(sql, ref count);
+                var table = result.Tables[0];
+                var columns = table.Columns;
+                var itemCodeColumn = columns["ItemCode"];
+                var itemDescColumn = columns["ItemDesc"];
+                var costColumn = columns["Cost"];
 
-            var itemsQuery =
-               from DataRow row in result.Tables[0].Rows
-               select new Item
-               {
-                   ItemCode = (string)row[itemCodeColumn],
-                   ItemDesc = (string)row[itemDescColumn],
-                   Cost = (decimal)row[costColumn]
-               };
+                var itemsQuery =
+                   from DataRow row in result.Tables[0].Rows
+                   select new Item
+                   {
+                       ItemCode = (string)row[itemCodeColumn],
+                       ItemDesc = (string)row[itemDescColumn],
+                       Cost = (decimal)row[costColumn]
+                   };
 
-            return itemsQuery.ToList()[0];
+                return itemsQuery.ToList()[0];
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
+        /// <summary>
+        /// Returns true if the Invoice exists for the given invoice number
+        /// </summary>
+        /// <param name="invoiceNum"></param>
+        /// <returns></returns>
         internal static bool InvoiceExists(int invoiceNum)
         {
             try
@@ -328,6 +361,10 @@ namespace InvoiceSystem
             }
         }
 
+        /// <summary>
+        /// Updates the given invoice.
+        /// </summary>
+        /// <param name="invoice"></param>
         internal static void UpdateInvoice(Invoice invoice)
         {
             try

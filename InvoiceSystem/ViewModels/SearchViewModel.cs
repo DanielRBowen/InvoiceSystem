@@ -1,11 +1,9 @@
-﻿using System;
+﻿using InvoiceSystem.Classes;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+using System.Reflection;
 
 namespace InvoiceSystem.ViewModels
 {
@@ -113,38 +111,45 @@ namespace InvoiceSystem.ViewModels
         /// </summary>
         private void ApplyFilters()
         {
-            var query = AllInvoices.AsEnumerable();
-
-            //Invoice number
-            var selectedInvoiceNumber = SelectedInvoiceNumber;
-
-            if (selectedInvoiceNumber != null)
+            try
             {
-                var selectedInvoiceNumberValue = selectedInvoiceNumber.GetValueOrDefault();
-                query = query.Where(invoice => invoice.Invoice.InvoiceNum == selectedInvoiceNumberValue);
+                var query = AllInvoices.AsEnumerable();
+
+                //Invoice number
+                var selectedInvoiceNumber = SelectedInvoiceNumber;
+
+                if (selectedInvoiceNumber != null)
+                {
+                    var selectedInvoiceNumberValue = selectedInvoiceNumber.GetValueOrDefault();
+                    query = query.Where(invoice => invoice.Invoice.InvoiceNum == selectedInvoiceNumberValue);
+                }
+
+                //Invoice Date
+                var selectedInvoiceDate = SelectedInvoiceDate;
+
+                if (selectedInvoiceDate != null)
+                {
+                    var selectedInvoiceDateValue = selectedInvoiceDate.GetValueOrDefault();
+                    query = query.Where(invoice => invoice.Invoice.InvoiceDate == selectedInvoiceDateValue);
+                }
+
+                //Total charge
+                var selectedTotalCharge = SelectedTotalCharge;
+
+                if (selectedTotalCharge != null)
+                {
+                    var selectedTotalChargeValue = selectedTotalCharge.GetValueOrDefault();
+                    query = query.Where(invoice => invoice.Invoice.TotalCharge == selectedTotalChargeValue);
+                }
+
+                FilteredInvoices = query.ToList();
+
+                return;
             }
-
-            //Invoice Date
-            var selectedInvoiceDate = SelectedInvoiceDate;
-
-            if (selectedInvoiceDate != null)
+            catch (Exception ex)
             {
-                var selectedInvoiceDateValue = selectedInvoiceDate.GetValueOrDefault();
-                query = query.Where(invoice => invoice.Invoice.InvoiceDate == selectedInvoiceDateValue);
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
-
-            //Total charge
-            var selectedTotalCharge = SelectedTotalCharge;
-
-            if (selectedTotalCharge != null)
-            {
-                var selectedTotalChargeValue = selectedTotalCharge.GetValueOrDefault();
-                query = query.Where(invoice => invoice.Invoice.TotalCharge == selectedTotalChargeValue);
-            }
-
-            FilteredInvoices = query.ToList();
-
-            return;
         }
 
         /// <summary>
@@ -153,22 +158,29 @@ namespace InvoiceSystem.ViewModels
         /// </summary>
         public SearchViewModel()
         {
-            var invoices = SQL.LoadAllInvoices();
-            AllInvoices = invoices.Select(invoice => new InvoiceViewModel(invoice)).ToList();
+            try
+            {
+                var invoices = SQL.LoadAllInvoices();
+                AllInvoices = invoices.Select(invoice => new InvoiceViewModel(invoice)).ToList();
 
-            var invoiceNumbers = new SortedSet<int>(invoices.Select(invoice => invoice.InvoiceNum)); // Filter duplicates
-            var noInvoiceNumberViewModel = new[] { new InvoiceNumberViewModel(null) }; //So the selection can be nothing
-            InvoiceNumbers = new ObservableCollection<InvoiceNumberViewModel>(noInvoiceNumberViewModel.Concat(invoiceNumbers.Select(invoiceNumber => new InvoiceNumberViewModel(invoiceNumber))));
+                var invoiceNumbers = new SortedSet<int>(invoices.Select(invoice => invoice.InvoiceNum)); // Filter duplicates
+                var noInvoiceNumberViewModel = new[] { new InvoiceNumberViewModel(null) }; //So the selection can be nothing
+                InvoiceNumbers = new ObservableCollection<InvoiceNumberViewModel>(noInvoiceNumberViewModel.Concat(invoiceNumbers.Select(invoiceNumber => new InvoiceNumberViewModel(invoiceNumber))));
 
-            var invoiceDates = new SortedSet<DateTime>(invoices.Select(invoice => invoice.InvoiceDate)); // Filter duplicates
-            var noDateViewModel = new[] { new InvoiceDateViewModel(null) }; //So the selection can be nothing
-            InvoiceDates = new ObservableCollection<InvoiceDateViewModel>(noDateViewModel.Concat(invoiceDates.Select(invoiceDate => new InvoiceDateViewModel(invoiceDate))));
+                var invoiceDates = new SortedSet<DateTime>(invoices.Select(invoice => invoice.InvoiceDate)); // Filter duplicates
+                var noDateViewModel = new[] { new InvoiceDateViewModel(null) }; //So the selection can be nothing
+                InvoiceDates = new ObservableCollection<InvoiceDateViewModel>(noDateViewModel.Concat(invoiceDates.Select(invoiceDate => new InvoiceDateViewModel(invoiceDate))));
 
-            var totalCharges = new SortedSet<decimal>(invoices.Select(invoice => invoice.TotalCharge)); // Filter duplicates
-            var noTotalChargeViewModel = new[] { new TotalChargeViewModel(null) }; //So the selection can be nothing
-            TotalCharges = new ObservableCollection<TotalChargeViewModel>(noTotalChargeViewModel.Concat(totalCharges.Select(totalCharge => new TotalChargeViewModel(totalCharge))));
+                var totalCharges = new SortedSet<decimal>(invoices.Select(invoice => invoice.TotalCharge)); // Filter duplicates
+                var noTotalChargeViewModel = new[] { new TotalChargeViewModel(null) }; //So the selection can be nothing
+                TotalCharges = new ObservableCollection<TotalChargeViewModel>(noTotalChargeViewModel.Concat(totalCharges.Select(totalCharge => new TotalChargeViewModel(totalCharge))));
 
-            ApplyFilters();
+                ApplyFilters();
+            }
+            catch (Exception ex)
+            {
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
+            }
         }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InvoiceSystem
+﻿namespace InvoiceSystem
 {
     /// <summary>
     /// An item that can be on an invoice. (ItemDesc)

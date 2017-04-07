@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InvoiceSystem.Models
+﻿namespace InvoiceSystem.Models
 {
     /// <summary>
     /// A model of a line item that taken from the data

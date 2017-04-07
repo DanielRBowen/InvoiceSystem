@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InvoiceSystem.ViewModels
+﻿namespace InvoiceSystem.ViewModels
 {
     /// <summary>
     /// To bind a control with a invoice number

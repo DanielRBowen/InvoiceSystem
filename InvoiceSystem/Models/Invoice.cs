@@ -1,9 +1,4 @@
-﻿using InvoiceSystem.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace InvoiceSystem
 {
@@ -30,6 +25,9 @@ namespace InvoiceSystem
         /// </summary>
         public decimal TotalCharge { get; set; }
 
+        /// <summary>
+        /// Saves the invoice. Updates the data if it exists or inserts the data if it doesn't
+        /// </summary>
         internal void Save()
         {
             if (SQL.InvoiceExists(InvoiceNum))
