@@ -14,7 +14,7 @@ namespace InvoiceSystem.Classes
 		/// <summary>
 		/// Connection string to the database.
 		/// </summary>
-		private string sConnectionString { get; }
+		private string SConnectionString { get; }
 
 
 		/// <summary>
@@ -31,7 +31,7 @@ namespace InvoiceSystem.Classes
 		/// <param name="connectiongString"></param>
 		public Database(string connectiongString)
 		{
-			sConnectionString = connectiongString ?? throw new ArgumentNullException(nameof(connectiongString));
+			SConnectionString = connectiongString ?? throw new ArgumentNullException(nameof(connectiongString));
 		}
 
 
@@ -50,7 +50,7 @@ namespace InvoiceSystem.Classes
 				//Create a new DataSet
 				DataSet ds = new DataSet();
 
-				using (OleDbConnection conn = new OleDbConnection(sConnectionString))
+				using (OleDbConnection conn = new OleDbConnection(SConnectionString))
 				{
 					using (OleDbDataAdapter adapter = new OleDbDataAdapter())
 					{
@@ -58,12 +58,14 @@ namespace InvoiceSystem.Classes
 						//Open the connection to the database
 						conn.Open();
 
-						//Add the information for the SelectCommand using the SQL statement and the connection object
-						adapter.SelectCommand = new OleDbCommand(sSQL, conn);
-						adapter.SelectCommand.CommandTimeout = 0;
+                        //Add the information for the SelectCommand using the SQL statement and the connection object
+                        adapter.SelectCommand = new OleDbCommand(sSQL, conn)
+                        {
+                            CommandTimeout = 0
+                        };
 
-						//Fill up the DataSet with data
-						adapter.Fill(ds);
+                        //Fill up the DataSet with data
+                        adapter.Fill(ds);
 					}
 				}
 
@@ -93,7 +95,7 @@ namespace InvoiceSystem.Classes
 				//Holds the return value
 				object obj;
 
-				using (OleDbConnection conn = new OleDbConnection(sConnectionString))
+				using (OleDbConnection conn = new OleDbConnection(SConnectionString))
 				{
 					using (OleDbDataAdapter adapter = new OleDbDataAdapter())
 					{
@@ -101,12 +103,14 @@ namespace InvoiceSystem.Classes
 						//Open the connection to the database
 						conn.Open();
 
-						//Add the information for the SelectCommand using the SQL statement and the connection object
-						adapter.SelectCommand = new OleDbCommand(sSQL, conn);
-						adapter.SelectCommand.CommandTimeout = 0;
+                        //Add the information for the SelectCommand using the SQL statement and the connection object
+                        adapter.SelectCommand = new OleDbCommand(sSQL, conn)
+                        {
+                            CommandTimeout = 0
+                        };
 
-						//Execute the scalar SQL statement
-						obj = adapter.SelectCommand.ExecuteScalar();
+                        //Execute the scalar SQL statement
+                        obj = adapter.SelectCommand.ExecuteScalar();
 					}
 				}
 
@@ -132,17 +136,19 @@ namespace InvoiceSystem.Classes
 				//Number of rows affected
 				int iNumRows;
 
-				using (OleDbConnection conn = new OleDbConnection(sConnectionString))
+				using (OleDbConnection conn = new OleDbConnection(SConnectionString))
 				{
 					//Open the connection to the database
 					conn.Open();
 
-					//Add the information for the SelectCommand using the SQL statement and the connection object
-					OleDbCommand cmd = new OleDbCommand(sSQL, conn);
-					cmd.CommandTimeout = 0;
+                    //Add the information for the SelectCommand using the SQL statement and the connection object
+                    OleDbCommand cmd = new OleDbCommand(sSQL, conn)
+                    {
+                        CommandTimeout = 0
+                    };
 
-					//Execute the non query SQL statement
-					iNumRows = cmd.ExecuteNonQuery();
+                    //Execute the non query SQL statement
+                    iNumRows = cmd.ExecuteNonQuery();
 				}
 
 				//return the number of rows affected

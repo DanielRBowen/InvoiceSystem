@@ -12,11 +12,6 @@ namespace InvoiceSystem.ViewModels
     public class ItemsDefinitionViewModel : ViewModel
     {
         /// <summary>
-        /// 
-        /// </summary>
-        private IList<ItemViewModel> allItems;
-
-        /// <summary>
         /// A List of all Items from the database.
         /// </summary>
         public IList<ItemViewModel> AllItems { get; }

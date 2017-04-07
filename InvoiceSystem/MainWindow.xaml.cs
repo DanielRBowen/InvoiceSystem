@@ -58,6 +58,20 @@ namespace InvoiceSystem
         {
             try
             {
+                if (InvoiceDatePicker.SelectedDate == null)
+                {
+                    MessageBox.Show(this, "Please select a date.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    InvoiceDatePicker.Focus();
+                }
+                else
+                {
+                    App.InvoiceService.CurrentInvoice = new Invoice
+                    {
+                        InvoiceDate = (DateTime)InvoiceDatePicker.SelectedDate
+                    };
+
+                    App.InvoiceService.CurrentInvoice.Save();
+                }
             }
             catch (Exception ex)
             {

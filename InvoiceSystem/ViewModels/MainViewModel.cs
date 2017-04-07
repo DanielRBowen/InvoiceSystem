@@ -15,6 +15,11 @@ namespace InvoiceSystem.ViewModels
     public class MainViewModel : ViewModel
     {
         /// <summary>
+        /// A List of all Items from the database.
+        /// </summary>
+        public ObservableCollection<ItemViewModel> AllItems { get; }
+
+        /// <summary>
         /// List of line item viewmodel 
         /// </summary>
         private ObservableCollection<CurrentInvoiceItemViewModel> currentInvoiceItems;
@@ -36,6 +41,24 @@ namespace InvoiceSystem.ViewModels
             }
         }
 
+        private Invoice currentInvoice;
+
+        /// <summary>
+        /// This is the current invoice
+        /// </summary>
+        public Invoice CurrentInvoice
+        {
+            get => currentInvoice;
+            private set
+            {
+                if (value != currentInvoice)
+                {
+                    currentInvoice = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         /// <summary>
         /// MainViewModel constructor to set things up
         /// </summary>
@@ -43,7 +66,11 @@ namespace InvoiceSystem.ViewModels
         {
             try
             {
-                if (App.InvoiceService.CurrentInvoice != null)
+                var items = SQL.LoadAllItems();
+                AllItems = new ObservableCollection<ItemViewModel>(items.Select(item => new ItemViewModel(item)));
+
+                currentInvoice = App.InvoiceService.CurrentInvoice;
+                if (currentInvoice != null)
                 {
                     CurrentInvoiceItems = new ObservableCollection<CurrentInvoiceItemViewModel>();
 

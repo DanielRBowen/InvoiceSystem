@@ -30,10 +30,16 @@ namespace InvoiceSystem
         /// </summary>
         public decimal TotalCharge { get; set; }
 
-
-        /// <summary>
-        /// The items sold
-        /// </summary>
-        public List<LineItem> InvoiceLineItems { get; set; }
+        internal void Save()
+        {
+            if (SQL.InvoiceExists(InvoiceNum))
+            {
+                SQL.UpdateInvoice(this);
+            }
+            else
+            {
+                InvoiceNum = SQL.InsertInvoice(this);
+            }
+        }
     }
 }

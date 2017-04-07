@@ -59,7 +59,7 @@
         </GroupBox>
 
         <!--Invoices-->
-        <DataGrid Name="InvoiceDataGrid" Grid.Row="4" ItemsSource="{Binding FilteredInvoices}" AutoGenerateColumns="False" CanUserAddRows="False" 
+        <DataGrid Name="InvoiceDataGrid" Grid.Row="4" ItemsSource="{Binding FilteredInvoices}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
                   CanUserDeleteRows="False" SelectionMode="Single" EnableRowVirtualization="True" EnableColumnVirtualization="True" SelectionUnit="FullRow" GridLinesVisibility="None" Grid.RowSpan="3">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Invoice Number" Binding="{Binding InvoiceNum}"/>

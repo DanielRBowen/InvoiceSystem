@@ -77,12 +77,28 @@ namespace InvoiceSystem
         /// </summary>
         /// <param name="invoice">invoice object to be inserted</param>
         /// <returns>string</returns>
-        public static string InsertInvoice(Invoice invoice)
+        public static int InsertInvoice(Invoice invoice)
         {
             try
             {
-                // NOT COMPLETE Just a starting point
-                return "INSERT INTO Invoice(InvoiceDate, TotalCharge) VALUES(#" + invoice.InvoiceDate + "#," + invoice.TotalCharge + "," + ")";
+                var datastore = new Database(); 
+
+                var sql = "SELECT MAX(InvoiceNum) FROM Invoices";
+                var result = datastore.ExecuteScalarSQL(sql);
+
+                if (!int.TryParse(result, out var invoiceNum))
+                {
+                    invoiceNum = 1;
+                }
+                else
+                {
+                    ++invoiceNum;
+                }
+
+                sql = $"INSERT INTO Invoices (InvoiceNum, InvoiceDate, TotalCharge) Values ({invoiceNum}, {invoice.InvoiceDate}, {invoice.TotalCharge})";
+                datastore.ExecuteNonQuery(sql);
+
+                return invoiceNum;
             }
             catch (Exception ex)
             {
@@ -295,6 +311,35 @@ namespace InvoiceSystem
                };
 
             return itemsQuery.ToList()[0];
+        }
+
+        internal static bool InvoiceExists(int invoiceNum)
+        {
+            try
+            {
+                var datastore = new Database();
+                var sql = $"SELECT 1 FROM Invoices WHERE InvoiceNum = {invoiceNum}";
+                var exists = datastore.ExecuteScalarSQL(sql);
+                return !string.IsNullOrWhiteSpace(exists);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        internal static void UpdateInvoice(Invoice invoice)
+        {
+            try
+            {
+                var sql = $"UPDATE Invoices SET InvoiceDate = {invoice.InvoiceDate}, TotalCharge = {invoice.TotalCharge} WHERE InvoiceNum = {invoice.InvoiceNum}";
+                var datastore = new Database();
+                datastore.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
     }
 }

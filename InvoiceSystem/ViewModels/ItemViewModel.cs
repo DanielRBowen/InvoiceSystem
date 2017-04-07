@@ -55,5 +55,14 @@ namespace InvoiceSystem.ViewModels
         /// The cost of the item
         /// </summary>
         public string Cost => item.Cost.ToString(NumberFormatInfo.CurrentInfo);
+
+        /// <summary>
+        /// The string of an ItemViewModel is the ItemDesc
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return $"{ItemDesc}";
+        }
     }
 }
