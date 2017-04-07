@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using System.Linq;
+using InvoiceSystem.Models;
 
 namespace InvoiceSystem
 {
@@ -37,13 +38,12 @@ namespace InvoiceSystem
             }
         }
 
-
         /// <summary>
         /// Returns a SQL statement that gets all data on an invoice for a given InvoiceID.
         /// </summary>
         /// <param name="sInvoiceID">The InvoiceID for the invoice to retrieve all data.</param>
         /// <returns>All data for the given invoice.</returns>
-        public static string getInvoice(string sInvoiceID)
+        public static string GetInvoice(string sInvoiceID)
         {
             try
             {
@@ -55,13 +55,12 @@ namespace InvoiceSystem
             }
         }
 
-
         /// <summary>
         /// Returns a SQL statement to get an InvoiceID given invoice date and total charge.
         /// </summary>
         /// <param name="invoice">invoice object</param>
         /// <returns>string</returns>
-        public static string getInvoiceID(Invoice invoice)
+        public static string GetInvoiceID(Invoice invoice)
         {
             try
             {
@@ -73,13 +72,12 @@ namespace InvoiceSystem
             }
         }
 
-
         /// <summary>
         /// Returns a SQL statement to insert an Invoice into the Invoice Table.
         /// </summary>
         /// <param name="invoice">invoice object to be inserted</param>
         /// <returns>string</returns>
-        public static string insertInvoice(Invoice invoice)
+        public static string InsertInvoice(Invoice invoice)
         {
             try
             {
@@ -92,13 +90,12 @@ namespace InvoiceSystem
             }
         }
 
-
         /// <summary>
         /// Returns a SQL statement to delete a Invoice in the Invoice table.
         /// </summary>
         /// <param name="sInvoiceID">invoice ID</param>
         /// <returns>string</returns>
-        public static string deleteInvoice(string sInvoiceID)
+        public static string DeleteInvoice(string sInvoiceID)
         {
             try
             {
@@ -110,14 +107,13 @@ namespace InvoiceSystem
             }
         }
 
-
         /// <summary>
         /// Returns a SQL statement to update an Invoice given Invoice ID.
         /// </summary>
         /// <param name="sInvoiceID">invoice ID</param>
         /// /// <param name="updateVal">value to be updated</param>
         /// <returns>string</returns>
-        public static string updateInvoice(string sInvoiceID, string updateVal)
+        public static string UpdateInvoice(string sInvoiceID, string updateVal)
         {
             try
             {
@@ -130,13 +126,12 @@ namespace InvoiceSystem
             }
         }
 
-        
         /// <summary>
         /// Returns a SQL statement to insert an Item into the ItemDesc Table.
         /// </summary>
         /// <param name="item">item to be inserted</param>
         /// <returns>string</returns>
-        public static string insertItem(Item item)
+        public static string InsertItem(Item item)
         {
             try
             {
@@ -148,13 +143,12 @@ namespace InvoiceSystem
             }
         }
 
-
         /// <summary>
         /// Returns a SQL statement to delete a Item in the ItemDesc table.
         /// </summary>
         /// <param name="sItemCode">invoice ID</param>
         /// <returns>string</returns>
-        public static string deleteItem(string sItemCode)
+        public static string DeleteItem(string sItemCode)
         {
             try
             {
@@ -166,7 +160,6 @@ namespace InvoiceSystem
             }
         }
 
-
         /// <summary>
         /// Returns a SQL statement to update an Item given ItemCode.
         /// </summary>
@@ -175,7 +168,7 @@ namespace InvoiceSystem
         /// <param name="sNewItemDesc">an Item's new description</param>
         /// <param name="sNewItemCost">an Item's new cost</param>
         /// <returns>string</returns>
-        public static string updateItem(string sOldItemCode, string sNewItemCode, string sNewItemDesc, string sNewItemCost)
+        public static string UpdateItem(string sOldItemCode, string sNewItemCode, string sNewItemDesc, string sNewItemCost)
         {
             try
             {
@@ -193,7 +186,7 @@ namespace InvoiceSystem
         /// Loads the invoices from the database and returns the data as a IList of Invoices
         /// </summary>
         /// <returns></returns>
-        public static IList<Invoice> LoadInvoices()
+        public static IList<Invoice> LoadAllInvoices()
         {
             var sql = @"SELECT InvoiceNum, InvoiceDate, TotalCharge FROM Invoices";
 
@@ -222,7 +215,7 @@ namespace InvoiceSystem
         /// Get all items from database.
         /// </summary>
         /// <returns></returns>
-        public static IList<Item> LoadItems()
+        public static IList<Item> LoadAllItems()
         {
             var sql = @"SELECT * FROM ItemDesc";
 
@@ -240,10 +233,69 @@ namespace InvoiceSystem
                {
                    ItemCode = (string)row[itemCodeColumn],
                    ItemDesc = (string)row[itemDescColumn],
-                   Cost =     (decimal)row[costColumn]
+                   Cost = (decimal)row[costColumn]
                };
 
             return itemsQuery.ToList();
         }
+
+        /// <summary>
+        /// Get the line items for the invoice.
+        /// </summary>
+        /// <returns></returns>
+        public static IList<LineItem> LoadLineItems(Invoice invoice)
+        {
+            var sql = $"SELECT * FROM LineItems WHERE {invoice.InvoiceNum} = InvoiceNum";
+
+            var count = 0;
+            var result = new Database().ExecuteSQLStatement(sql, ref count);
+            var table = result.Tables[0];
+            var columns = table.Columns;
+            var invoiceNumColumn = columns["InvoiceNum"];
+            var lineItemNumColumn = columns["LineItemNum"];
+            var itemCodeColumn = columns["ItemCode"];
+
+            var lineItemsQuery =
+               from DataRow row in result.Tables[0].Rows
+               select new LineItem
+               {
+                   InvoiceNumber = (int)row[invoiceNumColumn],
+                   LineItemNumber = (int)row[lineItemNumColumn],
+                   ItemCode = (string)row[itemCodeColumn]
+               };
+
+            return lineItemsQuery.ToList();
+        }
+
+        /// <summary>
+        /// Loads the Item from of with the itemcode of the given lineItem
+        /// </summary>
+        /// <param name="lineItem"></param>
+        /// <returns></returns>
+        internal static Item LoadItem(LineItem lineItem)
+        {
+            var sql = 
+                $"SELECT * FROM ItemDesc WHERE '{lineItem.ItemCode}' = ItemCode";
+
+            var count = 0;
+            var result = new Database().ExecuteSQLStatement(sql, ref count);
+            var table = result.Tables[0];
+            var columns = table.Columns;
+            var itemCodeColumn = columns["ItemCode"];
+            var itemDescColumn = columns["ItemDesc"];
+            var costColumn = columns["Cost"];
+
+            var itemsQuery =
+               from DataRow row in result.Tables[0].Rows
+               select new Item
+               {
+                   ItemCode = (string)row[itemCodeColumn],
+                   ItemDesc = (string)row[itemDescColumn],
+                   Cost = (decimal)row[costColumn]
+               };
+
+            return itemsQuery.ToList()[0];
+        }
     }
 }
+

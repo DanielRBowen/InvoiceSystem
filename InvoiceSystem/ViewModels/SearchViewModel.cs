@@ -153,7 +153,7 @@ namespace InvoiceSystem.ViewModels
         /// </summary>
         public SearchViewModel()
         {
-            var invoices = SQL.LoadInvoices();
+            var invoices = SQL.LoadAllInvoices();
             AllInvoices = invoices.Select(invoice => new InvoiceViewModel(invoice)).ToList();
 
             var invoiceNumbers = new SortedSet<int>(invoices.Select(invoice => invoice.InvoiceNum)); // Filter duplicates

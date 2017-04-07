@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InvoiceSystem.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,6 @@ namespace InvoiceSystem
         /// <summary>
         /// The items sold
         /// </summary>
-        public List<Item> InvoiceLineItems { get; set; }
+        public List<LineItem> InvoiceLineItems { get; set; }
     }
 }

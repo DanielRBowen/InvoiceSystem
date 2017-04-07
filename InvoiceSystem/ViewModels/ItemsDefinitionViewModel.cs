@@ -29,7 +29,7 @@ namespace InvoiceSystem.ViewModels
         {
             try
             {
-                var items = SQL.LoadItems();
+                var items = SQL.LoadAllItems();
                 AllItems = items.Select(item => new ItemViewModel(item)).ToList();
             }
             catch (Exception ex)

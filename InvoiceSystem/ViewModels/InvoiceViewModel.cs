@@ -20,7 +20,7 @@ namespace InvoiceSystem.ViewModels
         public Invoice Invoice => invoice;
 
         /// <summary>
-        /// Creats an Invoice view model with the data
+        /// Creates an Invoice view model with the data
         /// </summary>
         /// <param name="invoice"></param>
         public InvoiceViewModel(Invoice invoice)

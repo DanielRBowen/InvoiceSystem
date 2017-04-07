@@ -74,8 +74,9 @@ namespace InvoiceSystem
         {
             try
             {
-                // Set Current Invoice in App.InvoiceSystemLogic
-                App.InvoiceService.CurrentInvoice = (InvoiceViewModel)InvoiceDataGrid.SelectedItem;
+                // Set Current Invoice in App.InvoiceService
+                var selectedInvoice = (InvoiceViewModel)InvoiceDataGrid.SelectedItem;
+                App.InvoiceService.CurrentInvoice = selectedInvoice.Invoice;
                 Close();
             }
             catch (Exception ex)

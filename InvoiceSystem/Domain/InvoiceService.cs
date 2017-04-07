@@ -25,7 +25,7 @@ namespace InvoiceSystem
         /// <summary>
         /// 
         /// </summary>
-        private InvoiceViewModel currentInvoiceViewModel;
+        private Invoice currentInvoiceViewModel;
 
         /// <summary>
         /// 
@@ -36,7 +36,7 @@ namespace InvoiceSystem
         /// <summary>
         /// This is the current invoice that the user has either selected from the search window, created, or is editing.
         /// </summary>
-        public InvoiceViewModel CurrentInvoice
+        public Invoice CurrentInvoice
         {
             get => currentInvoiceViewModel;
             set

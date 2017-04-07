@@ -57,9 +57,11 @@
     </ApplicationDefinition>
     <Compile Include="Domain\Error.cs" />
     <Compile Include="Models\LineItem.cs" />
+    <Compile Include="ViewModels\CurrentInvoiceItemViewModel.cs" />
     <Compile Include="ViewModels\InvoiceNumberViewModel.cs" />
     <Compile Include="ViewModels\ItemsDefinitionViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
+    <Compile Include="ViewModels\LineItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\TotalChargeViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />

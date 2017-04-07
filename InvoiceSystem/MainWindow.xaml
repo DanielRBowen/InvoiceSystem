@@ -82,10 +82,12 @@
                 <TextBox Name="ItemCostTextBox" Text="$9999.99" Grid.Row="2" Grid.Column="4" IsReadOnly="True"/>
 
                 <!--Invoice Items-->
-                <DataGrid Name="ItemDataGrid" Grid.Row="4" ItemsSource="{Binding CurrentInvoiceItems}" AutoGenerateColumns="False" CanUserAddRows="False" 
+                <DataGrid Name="ItemDataGrid" Grid.Row="4" Grid.ColumnSpan="5" ItemsSource="{Binding CurrentInvoiceItems}" AutoGenerateColumns="False" CanUserAddRows="False" 
                   CanUserDeleteRows="False" SelectionMode="Single" EnableRowVirtualization="True" EnableColumnVirtualization="True" SelectionUnit="FullRow" GridLinesVisibility="None">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Item Code" Binding="{Binding ItemCode}" />
+                        <DataGridTextColumn Header="Invoice Number" Binding="{Binding InvoiceNum}" />
+                        <DataGridTextColumn Header="Line Item Number" Binding="{Binding LineItemNum}"/>
+                        <DataGridTextColumn Header="Item Code" Binding="{Binding ItemCode}"/>
                         <DataGridTextColumn Header="Item Description" Binding="{Binding ItemDesc}"/>
                         <DataGridTextColumn Header="Cost" Binding="{Binding Cost}"/>
                     </DataGrid.Columns>

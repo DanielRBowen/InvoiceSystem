@@ -1,6 +1,7 @@
 ﻿using InvoiceSystem.Classes;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -14,15 +15,15 @@ namespace InvoiceSystem.ViewModels
     public class MainViewModel : ViewModel
     {
         /// <summary>
-        /// List of items 
+        /// List of line item viewmodel 
         /// </summary>
-        private IList<ItemViewModel> currentInvoiceItems;
+        private ObservableCollection<CurrentInvoiceItemViewModel> currentInvoiceItems;
 
         /// <summary>
         /// The current items invoice
         /// Notifies that the property has changed and updates the view accordingly.
         /// </summary>
-        public IList<ItemViewModel> CurrentInvoiceItems
+        public ObservableCollection<CurrentInvoiceItemViewModel> CurrentInvoiceItems
         {
             get => currentInvoiceItems;
             private set
@@ -42,12 +43,22 @@ namespace InvoiceSystem.ViewModels
         {
             try
             {
-                //CurrentInvoiceItems = App.InvoiceService.CurrentInvoice.InvoiceLineItems;
+                if (App.InvoiceService.CurrentInvoice != null)
+                {
+                    CurrentInvoiceItems = new ObservableCollection<CurrentInvoiceItemViewModel>();
+
+                    var lineItems = SQL.LoadLineItems(App.InvoiceService.CurrentInvoice);
+
+                    foreach (var line in lineItems)
+                    {
+                        CurrentInvoiceItems.Add(new CurrentInvoiceItemViewModel(line, SQL.LoadItem(line)));
+                    }
+                }
             }
             catch (Exception ex)
             {
                 Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
-            }  
+            }
         }
     }
 }
