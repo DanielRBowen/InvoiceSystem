@@ -160,7 +160,7 @@ namespace InvoiceSystem.ViewModels
         {
             try
             {
-                var invoices = SQL.LoadAllInvoices();
+                var invoices = DataStore.LoadAllInvoices();
                 AllInvoices = invoices.Select(invoice => new InvoiceViewModel(invoice)).ToList();
 
                 var invoiceNumbers = new SortedSet<int>(invoices.Select(invoice => invoice.InvoiceNum)); // Filter duplicates

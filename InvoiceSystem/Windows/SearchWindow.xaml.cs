@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
 
-namespace InvoiceSystem
+namespace InvoiceSystem.Windows
 {
     /// <summary>
     /// Interaction logic for SearchWindow.xaml

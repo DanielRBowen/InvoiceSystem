@@ -10,12 +10,12 @@ namespace InvoiceSystem
     public class InvoiceService : INotifyPropertyChanged
     {
         /// <summary>
-        /// 
+        /// Handler to notify the view that the property has changed.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// 
+        /// Will Notify the view that the property has changed
         /// </summary>
         /// <param name="propertyName"></param>
         public void NotifyPropertyChanged([CallerMemberName]string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -24,7 +24,6 @@ namespace InvoiceSystem
         /// The current invoice
         /// </summary>
         private Invoice currentInvoice;
-
 
         /// <summary>
         /// This is the current invoice that the user has either selected from the search window, created, or is editing.

@@ -24,7 +24,7 @@ namespace InvoiceSystem.ViewModels
         {
             try
             {
-                var items = SQL.LoadAllItems();
+                var items = DataStore.LoadAllItems();
                 AllItems = items.Select(item => new ItemViewModel(item)).ToList();
             }
             catch (Exception ex)

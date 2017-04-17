@@ -66,17 +66,20 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\TotalChargeViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
-    <Compile Include="SearchWindow.xaml.cs">
+    <Compile Include="Windows\SearchWindow.xaml.cs">
       <DependentUpon>SearchWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\InvoiceDateViewModel.cs" />
     <Compile Include="ViewModels\InvoiceViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
-    <Page Include="ItemsDefinitionTableWindow.xaml">
+    <Compile Include="Windows\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Windows\ItemsDefinitionTableWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -84,19 +87,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Domain\SQL.cs" />
+    <Compile Include="Domain\DataStore.cs" />
     <Compile Include="Domain\Database.cs" />
-    <Compile Include="ItemsDefinitionTableWindow.xaml.cs">
+    <Compile Include="Windows\ItemsDefinitionTableWindow.xaml.cs">
       <DependentUpon>ItemsDefinitionTableWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Invoice.cs" />
     <Compile Include="Domain\InvoiceService.cs" />
     <Compile Include="Models\Item.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SearchWindow.xaml">
+    <Page Include="Windows\SearchWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,6 +131,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Windows\Window1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -157,7 +164,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
-    <Folder Include="Windows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

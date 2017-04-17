@@ -81,7 +81,7 @@ namespace InvoiceSystem.ViewModels
         {
             try
             {
-                var items = SQL.LoadAllItems();
+                var items = DataStore.LoadAllItems();
                 AllItems = new ObservableCollection<ItemViewModel>(items.Select(item => new ItemViewModel(item)));
 
                 currentInvoice = App.InvoiceService.CurrentInvoice;
@@ -89,11 +89,11 @@ namespace InvoiceSystem.ViewModels
                 {
                     CurrentInvoiceItems = new ObservableCollection<CurrentInvoiceItemViewModel>();
 
-                    var lineItems = SQL.LoadLineItems(App.InvoiceService.CurrentInvoice);
+                    var lineItems = DataStore.LoadLineItems(App.InvoiceService.CurrentInvoice);
 
                     foreach (var line in lineItems)
                     {
-                        CurrentInvoiceItems.Add(new CurrentInvoiceItemViewModel(line, SQL.LoadItem(line)));
+                        CurrentInvoiceItems.Add(new CurrentInvoiceItemViewModel(line, DataStore.LoadItem(line)));
                     }
                 }
             }

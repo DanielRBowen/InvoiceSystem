@@ -30,13 +30,13 @@ namespace InvoiceSystem
         /// </summary>
         internal void Save()
         {
-            if (SQL.InvoiceExists(InvoiceNum))
+            if (DataStore.InvoiceExists(InvoiceNum))
             {
-                SQL.UpdateInvoice(this);
+                DataStore.UpdateInvoice(this);
             }
             else
             {
-                InvoiceNum = SQL.InsertInvoice(this);
+                InvoiceNum = DataStore.InsertInvoice(this);
             }
         }
     }
