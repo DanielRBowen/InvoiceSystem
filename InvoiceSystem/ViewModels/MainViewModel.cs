@@ -83,13 +83,7 @@ namespace InvoiceSystem.ViewModels
             try
             {
                 var items = SQL.LoadAllItems();
-
-                var noItemViewModel = new[] { new ItemViewModel(null) };
-                //AllItems = new ObservableCollection<ItemViewModel>(noItemViewModel.Concat(items.Select(item => new ItemViewModel(item))));
                 AllItems = new ObservableCollection<ItemViewModel>(items.Select(item => new ItemViewModel(item)));
-
-                //var itemCosts = new SortedSet<decimal>(items.Select(item => item.Cost));
-                //var noItemCostViewModel = new[] { new ItemCostViewModel(null) };
 
                 currentInvoice = App.InvoiceService.CurrentInvoice;
                 if (currentInvoice != null)

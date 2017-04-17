@@ -7,9 +7,9 @@
         Title="Items Definition Table" Height="720" Width="1280" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid Margin="25">
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -39,7 +39,7 @@
             </GroupBox.Header>
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -51,13 +51,13 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 
-                <Label Content="Item Name:" />
+                <Label Content="Item Name:" FontWeight="Bold" HorizontalContentAlignment="Right" />
                 <TextBox Name="ItemNameTextBox" Grid.Column="2" />
 
-                <Label Content="Item Cost:" Grid.Row="2"/>
+                <Label Content="Item Cost:" Grid.Row="2" FontWeight="Bold" HorizontalContentAlignment="Right"/>
                 <TextBox Name="ItemCostTextBox" Grid.Column="2" Grid.Row="2"/>
 
-                <Label Content="Item Description:" Grid.Row="4"/>
+                <Label Content="Item Description:" Grid.Row="4" FontWeight="Bold" HorizontalContentAlignment="Right"/>
                 <TextBox Name="ItemDescriptionTextBox" Grid.Column="2" Grid.Row="4"/>
             </Grid>
         </GroupBox>
