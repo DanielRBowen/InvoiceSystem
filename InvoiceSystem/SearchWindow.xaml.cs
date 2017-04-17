@@ -65,6 +65,12 @@ namespace InvoiceSystem
             {
                 // Set Current Invoice in App.InvoiceService
                 var selectedInvoice = (InvoiceViewModel)InvoiceDataGrid.SelectedItem;
+                if (selectedInvoice == null)
+                {
+                    MessageBox.Show(this, "Please Select an Invoice.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 App.InvoiceService.CurrentInvoice = selectedInvoice.Invoice;
                 Close();
             }
