@@ -6,7 +6,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!--Since this a WPF application you should use styles for your applications.  Visual properties shouldn’t be hard coded into controls, they should be put into styles and applied to controls.-->
-                <ResourceDictionary Source="Styles/BureauBlue.xaml"/>
+                <!--<ResourceDictionary Source="Styles/BureauBlue.xaml"/>-->
+                <ResourceDictionary Source="/PresentationFramework.Aero, Version=4.0.0.0,
+ Culture=neutral, PublicKeyToken=31bf3856ad364e35,
+ ProcessorArchitecture=MSIL;component/themes/aero.normalcolor.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

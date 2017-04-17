@@ -7,10 +7,10 @@
         Title="Search" Height="720" Width="1280" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid Margin="25">
         <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -34,23 +34,23 @@
             <GroupBox.Header>
                 <Label Content="Filter"/>
             </GroupBox.Header>
-            <Grid>
+            <Grid Margin="10,5,10,10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="290"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="5"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="10"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="10"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Content="By Invoice Number:" FontSize="15"/>
-                <Label Content="By Date:" FontSize="15" Grid.Row="2"/>
-                <Label Content="By Total Charge:" FontSize="15" Grid.Row="4"/>
+                <Label Content="By Invoice Number:" HorizontalContentAlignment="Right" FontWeight="Bold"/>
+                <Label Content="By Date:" Grid.Row="2" HorizontalContentAlignment="Right" FontWeight="Bold"/>
+                <Label Content="By Total Charge:" Grid.Row="4" HorizontalContentAlignment="Right" FontWeight="Bold"/>
 
                 <ComboBox Name="InvoiceNumberComboBox" ItemsSource="{Binding InvoiceNumbers}" DisplayMemberPath="Text" SelectedValuePath="Value" SelectedValue="{Binding SelectedInvoiceNumber}" IsEditable="False"  Grid.Column="2"/>
                 <ComboBox Name="InvoiceDateComboBox" Grid.Row="2" ItemsSource="{Binding InvoiceDates}" DisplayMemberPath="Text" SelectedValuePath="Value" SelectedValue="{Binding SelectedInvoiceDate}" IsEditable="False" Grid.Column="2"/>

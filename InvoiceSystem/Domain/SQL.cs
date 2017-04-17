@@ -5,6 +5,7 @@ using System.Data;
 using System.Reflection;
 using System.Linq;
 using InvoiceSystem.Models;
+using System.Globalization;
 
 namespace InvoiceSystem
 {
@@ -95,7 +96,7 @@ namespace InvoiceSystem
                     ++invoiceNum;
                 }
 
-                sql = $"INSERT INTO Invoices (InvoiceNum, InvoiceDate, TotalCharge) Values ({invoiceNum}, {invoice.InvoiceDate}, {invoice.TotalCharge})";
+                sql = $"INSERT INTO Invoices (InvoiceNum, InvoiceDate, TotalCharge) Values ({invoiceNum.ToString(NumberFormatInfo.InvariantInfo)}, '{invoice.InvoiceDate.ToString(NumberFormatInfo.InvariantInfo)}', {invoice.TotalCharge.ToString(NumberFormatInfo.InvariantInfo)})";
                 datastore.ExecuteNonQuery(sql);
 
                 return invoiceNum;

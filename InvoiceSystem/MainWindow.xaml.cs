@@ -11,6 +11,7 @@ namespace InvoiceSystem
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel ViewModel => (MainViewModel)DataContext;
         /// <summary>
         /// The main form should allow the user to create new invoices, edit existing invoices, or delete existing invoices.  
         /// It will also have a menu that will have two functionalities.  
@@ -53,12 +54,15 @@ namespace InvoiceSystem
                 }
                 else
                 {
-                    App.InvoiceService.CurrentInvoice = new Invoice
+                    var invoice = new Invoice
                     {
                         InvoiceDate = (DateTime)InvoiceDatePicker.SelectedDate
                     };
 
-                    App.InvoiceService.CurrentInvoice.Save();
+                    App.InvoiceService.CurrentInvoice = invoice;
+
+                    invoice.Save();
+                    ViewModel.CurrentInvoice = invoice;
                 }
             }
             catch (Exception ex)

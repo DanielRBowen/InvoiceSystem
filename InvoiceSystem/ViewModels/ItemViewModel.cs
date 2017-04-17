@@ -50,7 +50,7 @@ namespace InvoiceSystem.ViewModels
         /// <summary>
         /// The cost of the item
         /// </summary>
-        public string Cost => item.Cost.ToString(NumberFormatInfo.CurrentInfo);
+        public string Cost => item.Cost.ToString("C", NumberFormatInfo.CurrentInfo);
 
         /// <summary>
         /// The string of an ItemViewModel is the ItemDesc

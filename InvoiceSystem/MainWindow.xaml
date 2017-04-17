@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Invoice System" Height="720" Width="1280" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
-    <Grid Margin="25">
+    <Grid Margin="25,0,25,25">
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="10"/>
@@ -16,23 +16,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Open up windows -->
-        <GroupBox>
-            <GroupBox.Header>
-                <Label Content="Windows"/>
-            </GroupBox.Header>
-            <Grid Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <!--“Search for Invoice” -->
-                <Button Name="SearchWindowButton" Content="Search for Invoice" Click="SearchWindowButton_Click"/>
-                <Button Name="DefinitionTableWindowButton" Content="Items Definition Table" Grid.Column="2" Click="DefinitionTableWindowButton_Click"/>
-            </Grid>
-        </GroupBox>
+        <Menu>
+            <MenuItem Header="Menu">
+                <MenuItem Header="Search for Invoice" Click="SearchWindowButton_Click"/>
+                <MenuItem Header="Items Definition Table" Click="DefinitionTableWindowButton_Click" />
+            </MenuItem>
+        </Menu>
 
         <!--Command Buttons Buttons-->
         <GroupBox Grid.Row="2">
@@ -77,13 +66,13 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Label Content="Invoice Number:"/>
+                <Label Content="Invoice Number:" FontWeight="Bold" HorizontalContentAlignment="Right"/>
                 <Label Name="InvoiceNumberLabel" Grid.Column="2" Content="{Binding CurrentInvoice.InvoiceNum}"/>
                 <DatePicker Name="InvoiceDatePicker" Grid.Column="4" SelectedDate="{Binding CurrentInvoice.InvoiceDate}"/>
 
                 <Button Name="AddItemButton" Content="Add Item" Grid.Row="2"/>
-                <ComboBox Name="ItemsComboBox" Grid.Row="2" Grid.Column="2" ItemsSource="{Binding AllItems}"/>
-                <TextBox Name="ItemCostTextBox" Text="Item Cost Goes here." Grid.Row="2" Grid.Column="4" IsReadOnly="True"/>
+                <ComboBox Name="ItemsComboBox" Grid.Row="2" Grid.Column="2" ItemsSource="{Binding AllItems}" SelectedItem="{Binding SelectedItem}" IsEditable="False"/>
+                <TextBox Name="ItemCostTextBox" Grid.Row="2" Grid.Column="4" IsReadOnly="True" Text="{Binding SelectedItem.Cost, Mode=OneWay}"/>
 
                 <Button Name="SaveInvoiceButton" Content="Save Invoice" Grid.Column="6"/>
             </Grid>

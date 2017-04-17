@@ -1,5 +1,6 @@
 ﻿using InvoiceSystem.Classes;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
@@ -15,6 +16,24 @@ namespace InvoiceSystem.ViewModels
         /// A List of all Items from the database.
         /// </summary>
         public ObservableCollection<ItemViewModel> AllItems { get; }
+
+        private ItemViewModel selectedItem;
+
+        /// <summary>
+        /// The Item which is selected
+        /// </summary>
+        public ItemViewModel SelectedItem
+        {
+            get => selectedItem;
+            set
+            {
+                if (value != selectedItem)
+                {
+                    selectedItem = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// List of line item viewmodel 
@@ -46,7 +65,7 @@ namespace InvoiceSystem.ViewModels
         public Invoice CurrentInvoice
         {
             get => currentInvoice;
-            private set
+            set
             {
                 if (value != currentInvoice)
                 {
@@ -64,7 +83,13 @@ namespace InvoiceSystem.ViewModels
             try
             {
                 var items = SQL.LoadAllItems();
+
+                var noItemViewModel = new[] { new ItemViewModel(null) };
+                //AllItems = new ObservableCollection<ItemViewModel>(noItemViewModel.Concat(items.Select(item => new ItemViewModel(item))));
                 AllItems = new ObservableCollection<ItemViewModel>(items.Select(item => new ItemViewModel(item)));
+
+                //var itemCosts = new SortedSet<decimal>(items.Select(item => item.Cost));
+                //var noItemCostViewModel = new[] { new ItemCostViewModel(null) };
 
                 currentInvoice = App.InvoiceService.CurrentInvoice;
                 if (currentInvoice != null)

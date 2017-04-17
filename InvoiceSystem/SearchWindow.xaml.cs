@@ -92,7 +92,7 @@ namespace InvoiceSystem
         }
 
         /// <summary>
-        /// A clear selection button should reset the form to its initial state. 
+        /// A clear selection button should reset the form to its initial state.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
