@@ -33,13 +33,10 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 
-                <Button Name="CreateNewInvoiceButton" Content="Create New Invoice" Click="CreateNewInvoiceButton_Click"/>
-                <Button Name="EditInvoiceButton" Content="Edit Invoice" Grid.Column="2" Click="EditInvoiceButton_Click"/>
-                <Button Name="DeleteInvoiceButton" Content="Delete Invoice" Grid.Column="4" Click="DeleteInvoiceButton_Click"/>
+                <Button Name="EditInvoiceButton" Content="Edit Invoice" Click="EditInvoiceButton_Click"/>
+                <Button Name="DeleteInvoiceButton" Content="Delete Invoice" Grid.Column="2" Click="DeleteInvoiceButton_Click"/>
             </Grid>
         </GroupBox>
 
@@ -74,7 +71,7 @@
                 <ComboBox Name="ItemsComboBox" Grid.Row="2" Grid.Column="2" ItemsSource="{Binding AllItems}" SelectedItem="{Binding SelectedItem}" IsEditable="False"/>
                 <TextBox Name="ItemCostTextBox" Grid.Row="2" Grid.Column="4" IsReadOnly="True" Text="{Binding SelectedItem.Cost, Mode=OneWay}"/>
 
-                <Button Name="SaveInvoiceButton" Content="Save Invoice" Grid.Column="6"/>
+                <Button Name="SaveInvoiceButton" Content="Create/Save Invoice" Grid.Column="6" Click="CreateNewInvoiceButton_Click"/>
             </Grid>
         </GroupBox>
 
