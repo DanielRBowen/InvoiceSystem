@@ -74,24 +74,6 @@ namespace InvoiceSystem.ViewModels
             }
         }
 
-        private Invoice currentInvoice;
-
-        /// <summary>
-        /// This is the current invoice
-        /// </summary>
-        public Invoice CurrentInvoice
-        {
-            get => currentInvoice;
-            set
-            {
-                if (value != currentInvoice)
-                {
-                    currentInvoice = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
         /// <summary>
         /// MainViewModel constructor to set things up
         /// </summary>
@@ -102,7 +84,7 @@ namespace InvoiceSystem.ViewModels
                 var items = DataStore.LoadAllItems();
                 AllItems = new ObservableCollection<ItemViewModel>(items.Select(item => new ItemViewModel(item)));
 
-                currentInvoice = App.InvoiceService.CurrentInvoice;
+                var currentInvoice = App.InvoiceService.CurrentInvoice;
                 CurrentInvoiceItems = new ObservableCollection<CurrentInvoiceItemViewModel>();
 
                 if (currentInvoice != null)

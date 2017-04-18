@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace InvoiceSystem
 {
@@ -25,10 +26,30 @@ namespace InvoiceSystem
         public decimal TotalCharge { get; set; }
 
         /// <summary>
+        /// Calculates the total charge
+        /// </summary>
+        /// <param name="items"></param>
+        private void CalculateTotalCharge(List<Item> items)
+        {
+            decimal totalCharge = 0;
+            foreach (var item in items)
+            {
+                totalCharge += item.Cost;
+            }
+
+            TotalCharge = totalCharge;
+        }
+
+        /// <summary>
         /// Saves the invoice. Updates the data if it exists or inserts the data if it doesn't
         /// </summary>
-        public void Save()
+        public void Save(List<Item> items = null)
         {
+            if (items != null)
+            {
+                CalculateTotalCharge(items);
+            }
+
             if (DataStore.InvoiceExists(InvoiceNum))
             {
                 DataStore.UpdateInvoice(this);

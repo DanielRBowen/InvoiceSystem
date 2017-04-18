@@ -2,6 +2,8 @@
 using InvoiceSystem.Models;
 using InvoiceSystem.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 
@@ -46,7 +48,7 @@ namespace InvoiceSystem.Windows
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CreateNewInvoiceButton_Click(object sender, RoutedEventArgs e)
+        private void CreateSaveInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -57,15 +59,27 @@ namespace InvoiceSystem.Windows
                 }
                 else
                 {
-                    var invoice = new Invoice
+                    var invoice = App.InvoiceService.CurrentInvoice;
+                    if (invoice == null)
                     {
-                        InvoiceDate = (DateTime)InvoiceDatePicker.SelectedDate
-                    };
+                        invoice = new Invoice
+                        {
+                            InvoiceDate = (DateTime)InvoiceDatePicker.SelectedDate
+                        };
 
-                    App.InvoiceService.CurrentInvoice = invoice;
+                        App.InvoiceService.CurrentInvoice = invoice;
 
-                    invoice.Save();
-                    ViewModel.CurrentInvoice = invoice;
+                        invoice.Save();
+                        ViewModel.CurrentInvoiceViewModel = new InvoiceViewModel(invoice);
+                    }
+                    else
+                    {
+                        var itemViews = ViewModel.CurrentInvoiceItems;
+                        var items = new List<Item>(itemViews.Select(itemView => itemView.Item));
+
+                        invoice.Save(items);
+                        ViewModel.CurrentInvoiceViewModel = new InvoiceViewModel(invoice);
+                    }                    
                 }
             }
             catch (Exception ex)
@@ -201,6 +215,12 @@ namespace InvoiceSystem.Windows
 
             var currentInvoiceItemViewModel = new CurrentInvoiceItemViewModel(lineItem, item);
             ViewModel.CurrentInvoiceItems.Add(currentInvoiceItemViewModel);
+
+            var itemViews = ViewModel.CurrentInvoiceItems;
+            var items = new List<Item>(itemViews.Select(itemView => itemView.Item));
+
+            invoice.Save(items);
+            ViewModel.CurrentInvoiceViewModel = new InvoiceViewModel(invoice);
         }
     }
 }
