@@ -287,7 +287,7 @@ namespace InvoiceSystem
             try
             {
                 var datastore = new Database();
-                var sql = $"SELECT 1 FROM ItemDesc WHERE ItemCode = {itemCode}";
+                var sql = $"SELECT 1 FROM ItemDesc WHERE ItemCode = '{itemCode}'";
                 var exists = datastore.ExecuteScalarSQL(sql);
                 return !string.IsNullOrWhiteSpace(exists);
             }
@@ -326,8 +326,8 @@ namespace InvoiceSystem
         {
             try
             {
-                var sql = $"UPDATE ItemDesc SET ItemDesc = {item.ItemDesc}, Cost = {item.Cost.ToString(NumberFormatInfo.InvariantInfo)} " +
-                          $"WHERE ItemCode = {item.ItemCode}";
+                var sql = $"UPDATE ItemDesc SET ItemCode = '{item.ItemCode}', ItemDesc = '{item.ItemDesc}', Cost = {item.Cost.ToString(NumberFormatInfo.InvariantInfo)} " +
+                          $"WHERE ItemCode = '{item.ItemCode}'";
                 var datastore = new Database();
                 datastore.ExecuteNonQuery(sql);
             }

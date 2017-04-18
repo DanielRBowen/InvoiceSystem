@@ -94,15 +94,16 @@ namespace InvoiceSystem.Windows
             {
                 if(ItemCodeTextBox.Text == "" || ItemCostTextBox.Text == "" || ItemDescriptionTextBox.Text == "")
                 {
-                    MessageBox.Show("Please fill out all fields.");
+                    MessageBox.Show("Please fill out all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                var itemCode = ItemCodeTextBox.Text;
-                decimal.TryParse(ItemCostTextBox.Text, out decimal itemCost);
-                var itemDesc = ItemDescriptionTextBox.Text;
+                var itemCost = ItemCostTextBox.Text;
+                itemCost = itemCost.Replace("$", "");
+                decimal.TryParse(itemCost, out decimal cost);
 
-                DataStore.SaveItem(itemCode, itemCost, itemDesc);
+                Item item = new Item { ItemCode = ItemCodeTextBox.Text, Cost = cost, ItemDesc = ItemDescriptionTextBox.Text };
+                item.Save();
             }
             catch (Exception ex)
             {
@@ -142,7 +143,8 @@ namespace InvoiceSystem.Windows
         {
             try
             {
-                Close();
+                if (MessageBox.Show("Are you sure you want to delete this item?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+                    return;
             }
             catch (Exception ex)
             {
