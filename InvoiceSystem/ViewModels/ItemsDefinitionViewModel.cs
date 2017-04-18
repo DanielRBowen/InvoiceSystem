@@ -16,6 +16,23 @@ namespace InvoiceSystem.ViewModels
         /// </summary>
         public IList<ItemViewModel> AllItems { get; }
 
+        private ItemViewModel selectedItem;
+
+        /// <summary>
+        /// The Item which is selected
+        /// </summary>
+        public ItemViewModel SelectedItem
+        {
+            get => selectedItem;
+            set
+            {
+                if (value != selectedItem)
+                {
+                    selectedItem = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// Constructor that gets all Items from the database.

@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Input;
 
 namespace InvoiceSystem.Windows
 {
@@ -12,6 +13,11 @@ namespace InvoiceSystem.Windows
     /// </summary>
     public partial class ItemsDefinitionTableWindow : Window
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private ItemsDefinitionViewModel ViewModel => (ItemsDefinitionViewModel)DataContext;
+
         /// <summary>
         /// The last form needed is a form to update the def table which contains all the items for the business.  
         /// This form can be accessed through the menu and only when an invoice is not being edited or a new invoice is being entered.  
@@ -78,6 +84,24 @@ namespace InvoiceSystem.Windows
 
 
         /// <summary>
+        /// Saves item to database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+
+
+        /// <summary>
         /// Adds an Item to the item definitions
         /// </summary>
         /// <param name="sender"></param>
@@ -86,7 +110,7 @@ namespace InvoiceSystem.Windows
         {
             try
             {
-                Close();
+                AddEditItemGrpbx.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
@@ -104,7 +128,10 @@ namespace InvoiceSystem.Windows
         {
             try
             {
-                Close();
+                if(ViewModel.SelectedItem != null)
+                {
+                    
+                }
             }
             catch (Exception ex)
             {
@@ -132,5 +159,109 @@ namespace InvoiceSystem.Windows
                 Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ItemDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ViewModel.SelectedItem = (ItemViewModel)ItemDataGrid.SelectedItem;
+                AddEditItemGrpbx.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Only allow letters and numbers to be entered.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ItemNameTextBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            try
+            {
+                // Only allow letters and numbers to be entered
+                if (!(e.Key >= Key.A && e.Key <= Key.Z || (e.Key >= Key.D0 && e.Key <= Key.D9)))
+                {
+                    // Allow the user to use the backspace, delete, tab, enter, left & right arrow keys, and space
+                    if (!(e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Tab || e.Key == Key.Enter
+                            || e.Key == Key.Left || e.Key == Key.Right || e.Key == Key.Space))
+                    {
+                        // No other keys allowed besides numbers, backspace, delete, tab, enter, left & right arrow keys, and space
+                        e.Handled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Only allow numbers to be entered.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ItemCostTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                // Only allow numbers to be entered
+                if (!(e.Key >= Key.D0 && e.Key <= Key.D9))
+                {
+                    // Allow the user to use the backspace, delete, tab, enter, left & right arrow keys, and space
+                    if (!(e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Tab || e.Key == Key.Enter
+                            || e.Key == Key.Left || e.Key == Key.Right || e.Key == Key.Space))
+                    {
+                        // No other keys allowed besides numbers, backspace, delete, tab, enter, left & right arrow keys, and space
+                        e.Handled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Only allow letters, numbers, space, dash, and slash to be entered.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ItemDescriptionTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                // Only allow letters, numbers, space, dash, and slash to be entered
+                if (!(e.Key >= Key.A && e.Key <= Key.Z || (e.Key >= Key.D0 && e.Key <= Key.D9) || e.Key == Key.Space || e.Key == Key.OemMinus || e.Key == Key.OemQuestion))
+                {
+                    // Allow the user to use the backspace, delete, tab, enter, left & right arrow keys, and space
+                    if (!(e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Tab || e.Key == Key.Enter
+                            || e.Key == Key.Left || e.Key == Key.Right || e.Key == Key.Space))
+                    {
+                        // No other keys allowed besides numbers, backspace, delete, tab, enter, left & right arrow keys, and space
+                        e.Handled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+
     }
 }
