@@ -83,6 +83,7 @@ namespace InvoiceSystem.Windows
         {
             try
             {
+
             }
             catch (Exception ex)
             {
@@ -102,6 +103,10 @@ namespace InvoiceSystem.Windows
         {
             try
             {
+                if (App.InvoiceService.CurrentInvoice == null)
+                {
+                    MessageBox.Show(this, "There is no Invoice to delete.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             catch (Exception ex)
             {
@@ -149,6 +154,34 @@ namespace InvoiceSystem.Windows
             {
                 Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
+        }
+
+        /// <summary>
+        /// Adds an Item to the invoice
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddItemButton_Click(object sender, RoutedEventArgs e)
+        {
+            var invoice = App.InvoiceService.CurrentInvoice;
+            if (invoice == null)
+            {
+                MessageBox.Show(this, "Please create or select an Invoice.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var itemViewModel = (ItemViewModel)ItemsComboBox.SelectedItem;
+            if (itemViewModel == null)
+            {
+                MessageBox.Show(this, "Please select an item to add to the invoice.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var item = itemViewModel.Item;
+            DataStore.AddItemToInvoice(invoice, item);
+
+            invoice.Save();
+            ViewModel.CurrentInvoice = invoice;
         }
     }
 }

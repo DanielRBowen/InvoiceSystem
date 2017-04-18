@@ -67,7 +67,7 @@
                 <Label Name="InvoiceNumberLabel" Grid.Column="2" Content="{Binding CurrentInvoice.InvoiceNum}"/>
                 <DatePicker Name="InvoiceDatePicker" Grid.Column="4" SelectedDate="{Binding CurrentInvoice.InvoiceDate}"/>
 
-                <Button Name="AddItemButton" Content="Add Item" Grid.Row="2"/>
+                <Button Name="AddItemButton" Content="Add Item" Grid.Row="2" Click="AddItemButton_Click"/>
                 <ComboBox Name="ItemsComboBox" Grid.Row="2" Grid.Column="2" ItemsSource="{Binding AllItems}" SelectedItem="{Binding SelectedItem}" IsEditable="False"/>
                 <TextBox Name="ItemCostTextBox" Grid.Row="2" Grid.Column="4" IsReadOnly="True" Text="{Binding SelectedItem.Cost, Mode=OneWay}"/>
 

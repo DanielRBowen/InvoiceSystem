@@ -177,6 +177,34 @@ namespace InvoiceSystem
             }
         }
 
+        internal static void AddItemToInvoice(Invoice invoice, Item item)
+        {
+            try
+            {
+                var datastore = new Database();
+
+                var sql = $"SELECT MAX(LineItemNum) FROM LineItems WHERE InvoiceNum = {invoice.InvoiceNum.ToString(NumberFormatInfo.InvariantInfo)}";
+                var result = datastore.ExecuteScalarSQL(sql);
+
+                if (!int.TryParse(result, out var lineItemNum))
+                {
+                    lineItemNum = 1;
+                }
+                else
+                {
+                    ++lineItemNum;
+                }
+
+                sql = $"INSERT INTO LineItems(InvoiceNum, LineItemNum, ItemCode) VALUES({invoice.InvoiceNum.ToString(NumberFormatInfo.InvariantInfo)} , {lineItemNum.ToString(NumberFormatInfo.InvariantInfo)} , '{item.ItemCode}')";
+                datastore.ExecuteNonQuery(sql);
+                return;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
         /// <summary>
         /// Returns a SQL statement to update an Item given ItemCode.
         /// </summary>
@@ -370,7 +398,7 @@ namespace InvoiceSystem
         {
             try
             {
-                var sql = $"UPDATE Invoices SET InvoiceDate = {invoice.InvoiceDate}, TotalCharge = {invoice.TotalCharge} WHERE InvoiceNum = {invoice.InvoiceNum}";
+                var sql = $"UPDATE Invoices SET InvoiceDate = '{invoice.InvoiceDate}', TotalCharge = {invoice.TotalCharge.ToString(NumberFormatInfo.InvariantInfo)} WHERE InvoiceNum = {invoice.InvoiceNum.ToString(NumberFormatInfo.InvariantInfo)}";
                 var datastore = new Database();
                 datastore.ExecuteNonQuery(sql);
             }
