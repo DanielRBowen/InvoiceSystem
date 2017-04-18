@@ -18,7 +18,6 @@ namespace InvoiceSystem
         /// </summary>
         public DateTime InvoiceDate { get; set; }
 
-
         /// <summary>
         /// The total charge that the invoice totaled
         /// Should be all the items in the list added up

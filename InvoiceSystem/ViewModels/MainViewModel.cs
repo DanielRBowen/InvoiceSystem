@@ -85,9 +85,10 @@ namespace InvoiceSystem.ViewModels
                 AllItems = new ObservableCollection<ItemViewModel>(items.Select(item => new ItemViewModel(item)));
 
                 currentInvoice = App.InvoiceService.CurrentInvoice;
+                CurrentInvoiceItems = new ObservableCollection<CurrentInvoiceItemViewModel>();
+
                 if (currentInvoice != null)
                 {
-                    CurrentInvoiceItems = new ObservableCollection<CurrentInvoiceItemViewModel>();
 
                     var lineItems = DataStore.LoadLineItems(App.InvoiceService.CurrentInvoice);
 

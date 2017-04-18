@@ -17,10 +17,8 @@
         </Grid.RowDefinitions>
 
         <Menu>
-            <MenuItem Header="Menu">
-                <MenuItem Header="Search for Invoice" Click="SearchWindowButton_Click"/>
-                <MenuItem Header="Items Definition Table" Click="DefinitionTableWindowButton_Click" />
-            </MenuItem>
+            <MenuItem Header="Search for Invoice" Click="SearchWindowButton_Click"/>
+            <MenuItem Header="Items Definition Table" Click="DefinitionTableWindowButton_Click" />
         </Menu>
 
         <!--Command Buttons Buttons-->
