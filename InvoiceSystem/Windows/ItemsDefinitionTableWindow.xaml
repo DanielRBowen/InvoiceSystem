@@ -31,8 +31,8 @@
             </Grid.ColumnDefinitions>
 
             <Button Name="CancelButton" Content="Back to Main Screen" IsCancel="True" Click="CancelButton_Click"/>
-            <Button Name="AddButton" Grid.Column="2" Content="Add" Click="AddButton_Click"/>
-            <Button Name="DeleteButton" Grid.Column="4" Content="Delete" Click="DeleteButton_Click"/>
+            <Button Name="AddButton" Grid.Column="2" Content="Add Item" Click="AddButton_Click"/>
+            <Button Name="DeleteButton" Grid.Column="4" Content="Delete Item" Click="DeleteButton_Click"/>
         </Grid>
 
         <!-- Add or Edit item controls-->
