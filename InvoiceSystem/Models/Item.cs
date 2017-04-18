@@ -21,5 +21,17 @@
         /// The cost of an item
         /// </summary>
         public decimal Cost { get; set; }
+
+        internal void Save()
+        {
+            if (DataStore.ItemExists(ItemCode))
+            {
+                DataStore.UpdateItem(this);
+            }
+            else
+            {
+                DataStore.InsertItem(this);
+            }
+        }
     }
 }

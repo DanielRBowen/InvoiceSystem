@@ -92,7 +92,17 @@ namespace InvoiceSystem.Windows
         {
             try
             {
-                
+                if(ItemCodeTextBox.Text == "" || ItemCostTextBox.Text == "" || ItemDescriptionTextBox.Text == "")
+                {
+                    MessageBox.Show("Please fill out all fields.");
+                    return;
+                }
+
+                var itemCode = ItemCodeTextBox.Text;
+                decimal.TryParse(ItemCostTextBox.Text, out decimal itemCost);
+                var itemDesc = ItemDescriptionTextBox.Text;
+
+                DataStore.SaveItem(itemCode, itemCost, itemDesc);
             }
             catch (Exception ex)
             {
@@ -111,27 +121,7 @@ namespace InvoiceSystem.Windows
             try
             {
                 AddEditItemGrpbx.Visibility = Visibility.Visible;
-            }
-            catch (Exception ex)
-            {
-                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
-            }
-        }
-
-
-        /// <summary>
-        /// Edits an Item definition
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void EditButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if(ViewModel.SelectedItem != null)
-                {
-                    
-                }
+                ViewModel.SelectedItem = null;
             }
             catch (Exception ex)
             {

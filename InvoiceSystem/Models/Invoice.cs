@@ -27,7 +27,7 @@ namespace InvoiceSystem
         /// <summary>
         /// Saves the invoice. Updates the data if it exists or inserts the data if it doesn't
         /// </summary>
-        internal void Save()
+        public void Save()
         {
             if (DataStore.InvoiceExists(InvoiceNum))
             {

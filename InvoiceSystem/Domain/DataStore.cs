@@ -21,57 +21,40 @@ namespace InvoiceSystem
     /// </summary>
     public static class DataStore
     {
-        #region String SQL
-
         /// <summary>
-        /// This SQL string gets all invoices from the database.
+        /// Adds an item to invoice.
         /// </summary>
+        /// <param name="invoice"></param>
+        /// <param name="item"></param>
         /// <returns></returns>
-        public static string GetAllInvoices()
+        public static int AddItemToInvoice(Invoice invoice, Item item)
         {
             try
             {
-                return "SELECT * FROM Invoices";
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " => " + ex.Message);
-            }
-        }
+                var datastore = new Database();
 
-        /// <summary>
-        /// Returns a SQL statement that gets all data on an invoice for a given InvoiceID.
-        /// </summary>
-        /// <param name="sInvoiceID">The InvoiceID for the invoice to retrieve all data.</param>
-        /// <returns>All data for the given invoice.</returns>
-        public static string GetInvoice(string sInvoiceID)
-        {
-            try
-            {
-                return "SELECT * FROM Invoices WHERE InvoiceID = " + sInvoiceID;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " => " + ex.Message);
-            }
-        }
+                var sql = $"SELECT MAX(LineItemNum) FROM LineItems WHERE InvoiceNum = {invoice.InvoiceNum.ToString(NumberFormatInfo.InvariantInfo)}";
+                var result = datastore.ExecuteScalarSQL(sql);
 
-        /// <summary>
-        /// Returns a SQL statement to get an InvoiceID given invoice date and total charge.
-        /// </summary>
-        /// <param name="invoice">invoice object</param>
-        /// <returns>string</returns>
-        public static string GetInvoiceID(Invoice invoice)
-        {
-            try
-            {
-                return "SELECT Invoice_ID FROM Invoice WHERE InvoiceDate = " + invoice.InvoiceDate + "AND TotalCharge = " + invoice.TotalCharge;
+                if (!int.TryParse(result, out var lineItemNum))
+                {
+                    lineItemNum = 1;
+                }
+                else
+                {
+                    ++lineItemNum;
+                }
+
+                sql = $"INSERT INTO LineItems(InvoiceNum, LineItemNum, ItemCode) VALUES({invoice.InvoiceNum.ToString(NumberFormatInfo.InvariantInfo)} , {lineItemNum.ToString(NumberFormatInfo.InvariantInfo)} , '{item.ItemCode}')";
+                datastore.ExecuteNonQuery(sql);
+                return lineItemNum;
             }
             catch (Exception ex)
             {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " => " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+        
 
         /// <summary>
         /// Returns a SQL statement to insert an Invoice into the Invoice Table.
@@ -107,125 +90,6 @@ namespace InvoiceSystem
             }
         }
 
-        /// <summary>
-        /// Returns a SQL statement to delete a Invoice in the Invoice table.
-        /// </summary>
-        /// <param name="sInvoiceID">invoice ID</param>
-        /// <returns>string</returns>
-        public static string DeleteInvoice(string sInvoiceID)
-        {
-            try
-            {
-                return "DELETE FROM Invoice WHERE Invoice_ID = " + sInvoiceID;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " => " + ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Returns a SQL statement to update an Invoice given Invoice ID.
-        /// </summary>
-        /// <param name="sInvoiceID">invoice ID</param>
-        /// /// <param name="updateVal">value to be updated</param>
-        /// <returns>string</returns>
-        public static string UpdateInvoice(string sInvoiceID, string updateVal)
-        {
-            try
-            {
-                // NOT COMPLETE just a starting point
-                return "UPDATE Invoice SET something = " + updateVal + "WHERE Invoice_ID = " + sInvoiceID;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " => " + ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Returns a SQL statement to insert an Item into the ItemDesc Table.
-        /// </summary>
-        /// <param name="item">item to be inserted</param>
-        /// <returns>string</returns>
-        public static string InsertItem(Item item)
-        {
-            try
-            {
-                return "INSERT INTO ItemDesc (ItemCode, ItemDesc, Cost) Values ('" + item.ItemCode + "','" + item.ItemDesc + "','" + item.Cost + "')";
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " => " + ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Returns a SQL statement to delete a Item in the ItemDesc table.
-        /// </summary>
-        /// <param name="sItemCode">invoice ID</param>
-        /// <returns>string</returns>
-        public static string DeleteItem(string sItemCode)
-        {
-            try
-            {
-                return "DELETE FROM ItemDesc WHERE ItemCode = '" + sItemCode + "'";
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " => " + ex.Message);
-            }
-        }
-
-        internal static int AddItemToInvoice(Invoice invoice, Item item)
-        {
-            try
-            {
-                var datastore = new Database();
-
-                var sql = $"SELECT MAX(LineItemNum) FROM LineItems WHERE InvoiceNum = {invoice.InvoiceNum.ToString(NumberFormatInfo.InvariantInfo)}";
-                var result = datastore.ExecuteScalarSQL(sql);
-
-                if (!int.TryParse(result, out var lineItemNum))
-                {
-                    lineItemNum = 1;
-                }
-                else
-                {
-                    ++lineItemNum;
-                }
-
-                sql = $"INSERT INTO LineItems(InvoiceNum, LineItemNum, ItemCode) VALUES({invoice.InvoiceNum.ToString(NumberFormatInfo.InvariantInfo)} , {lineItemNum.ToString(NumberFormatInfo.InvariantInfo)} , '{item.ItemCode}')";
-                datastore.ExecuteNonQuery(sql);
-                return lineItemNum;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Returns a SQL statement to update an Item given ItemCode.
-        /// </summary>
-        /// <param name="sOldItemCode">an Item's old code</param>
-        /// <param name="sNewItemCode">an Item's new code</param>
-        /// <param name="sNewItemDesc">an Item's new description</param>
-        /// <param name="sNewItemCost">an Item's new cost</param>
-        /// <returns>string</returns>
-        public static string UpdateItem(string sOldItemCode, string sNewItemCode, string sNewItemDesc, string sNewItemCost)
-        {
-            try
-            {
-                return "UPDATE ItemDesc SET ItemCode = '" + sNewItemCode + "', ItemDesc = '" + sNewItemDesc + "', Cost = '" + sNewItemCost + "' WHERE ItemCode='" + sOldItemCode + "'";
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " => " + ex.Message);
-            }
-        }
-
-        #endregion
 
         /// <summary>
         /// Loads the invoices from the database and returns the data as a IList of Invoices
@@ -298,6 +162,7 @@ namespace InvoiceSystem
             }
         }
 
+
         /// <summary>
         /// Get the line items for the invoice.
         /// </summary>
@@ -333,12 +198,13 @@ namespace InvoiceSystem
             }
         }
 
+
         /// <summary>
         /// Loads the Item from of with the itemcode of the given lineItem
         /// </summary>
         /// <param name="lineItem"></param>
         /// <returns></returns>
-        internal static Item LoadItem(LineItem lineItem)
+        public static Item LoadItem(LineItem lineItem)
         {
             try
             {
@@ -370,12 +236,13 @@ namespace InvoiceSystem
             }
         }
 
+
         /// <summary>
         /// Returns true if the Invoice exists for the given invoice number
         /// </summary>
         /// <param name="invoiceNum"></param>
         /// <returns></returns>
-        internal static bool InvoiceExists(int invoiceNum)
+        public static bool InvoiceExists(int invoiceNum)
         {
             try
             {
@@ -390,15 +257,77 @@ namespace InvoiceSystem
             }
         }
 
+
         /// <summary>
         /// Updates the given invoice.
         /// </summary>
         /// <param name="invoice"></param>
-        internal static void UpdateInvoice(Invoice invoice)
+        public static void UpdateInvoice(Invoice invoice)
         {
             try
             {
                 var sql = $"UPDATE Invoices SET InvoiceDate = '{invoice.InvoiceDate}', TotalCharge = {invoice.TotalCharge.ToString(NumberFormatInfo.InvariantInfo)} WHERE InvoiceNum = {invoice.InvoiceNum.ToString(NumberFormatInfo.InvariantInfo)}";
+                var datastore = new Database();
+                datastore.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Returns true if the Item exists for the given item code.
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <returns></returns>
+        public static bool ItemExists(string itemCode)
+        {
+            try
+            {
+                var datastore = new Database();
+                var sql = $"SELECT 1 FROM ItemDesc WHERE ItemCode = {itemCode}";
+                var exists = datastore.ExecuteScalarSQL(sql);
+                return !string.IsNullOrWhiteSpace(exists);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Save item to database.
+        /// </summary>
+        /// <param name="item"></param>
+        public static void InsertItem(Item item)
+        {
+            try
+            {
+                var datastore = new Database();
+
+                var sql = $"INSERT INTO ItemDesc (ItemCode, ItemDesc, Cost) VALUES('{item.ItemCode}', '{item.ItemDesc}', {item.Cost.ToString(NumberFormatInfo.InvariantInfo)})";
+                datastore.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Update an item in the database.
+        /// </summary>
+        /// <param name="item">item to be updated</param>
+        public static void UpdateItem(Item item)
+        {
+            try
+            {
+                var sql = $"UPDATE ItemDesc SET ItemDesc = {item.ItemDesc}, Cost = {item.Cost.ToString(NumberFormatInfo.InvariantInfo)} " +
+                          $"WHERE ItemCode = {item.ItemCode}";
                 var datastore = new Database();
                 datastore.ExecuteNonQuery(sql);
             }
