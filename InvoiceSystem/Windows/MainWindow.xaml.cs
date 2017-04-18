@@ -1,4 +1,5 @@
 ﻿using InvoiceSystem.Classes;
+using InvoiceSystem.Models;
 using InvoiceSystem.ViewModels;
 using System;
 using System.Reflection;
@@ -178,10 +179,17 @@ namespace InvoiceSystem.Windows
             }
 
             var item = itemViewModel.Item;
-            DataStore.AddItemToInvoice(invoice, item);
+            var lineItemNumber = DataStore.AddItemToInvoice(invoice, item);
 
-            invoice.Save();
-            ViewModel.CurrentInvoice = invoice;
+            var lineItem = new LineItem
+            {
+                InvoiceNumber = invoice.InvoiceNum,
+                ItemCode = item.ItemCode,
+                LineItemNumber = lineItemNumber
+            };
+
+            var currentInvoiceItemViewModel = new CurrentInvoiceItemViewModel(lineItem, item);
+            ViewModel.CurrentInvoiceItems.Add(currentInvoiceItemViewModel);
         }
     }
 }

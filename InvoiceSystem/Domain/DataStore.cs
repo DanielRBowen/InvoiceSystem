@@ -177,7 +177,7 @@ namespace InvoiceSystem
             }
         }
 
-        internal static void AddItemToInvoice(Invoice invoice, Item item)
+        internal static int AddItemToInvoice(Invoice invoice, Item item)
         {
             try
             {
@@ -197,7 +197,7 @@ namespace InvoiceSystem
 
                 sql = $"INSERT INTO LineItems(InvoiceNum, LineItemNum, ItemCode) VALUES({invoice.InvoiceNum.ToString(NumberFormatInfo.InvariantInfo)} , {lineItemNum.ToString(NumberFormatInfo.InvariantInfo)} , '{item.ItemCode}')";
                 datastore.ExecuteNonQuery(sql);
-                return;
+                return lineItemNum;
             }
             catch (Exception ex)
             {
