@@ -104,6 +104,7 @@ namespace InvoiceSystem.Windows
 
                 Item item = new Item { ItemCode = ItemCodeTextBox.Text, Cost = cost, ItemDesc = ItemDescriptionTextBox.Text };
                 item.Save();
+                AddEditItemGrpbx.Visibility = Visibility.Collapsed;
             }
             catch (Exception ex)
             {
@@ -123,6 +124,7 @@ namespace InvoiceSystem.Windows
             {
                 AddEditItemGrpbx.Visibility = Visibility.Visible;
                 ViewModel.SelectedItem = null;
+                ItemCodeTextBox.Focus();
             }
             catch (Exception ex)
             {
@@ -143,8 +145,16 @@ namespace InvoiceSystem.Windows
         {
             try
             {
-                if (MessageBox.Show("Are you sure you want to delete this item?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
-                    return;
+                if (ViewModel.SelectedItem != null)
+                {
+                    if (MessageBox.Show("Are you sure you want to delete this item?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+                        return;
+
+                    // Delete the item from database
+                    //ViewModel.SelectedItem.Item.Delete();
+                }
+                else
+                    MessageBox.Show("Please select an item.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
