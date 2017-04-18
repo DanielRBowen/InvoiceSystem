@@ -25,6 +25,8 @@ namespace InvoiceSystem.Windows
             {
                 InitializeComponent();
                 DataContext = new MainViewModel();
+
+                ItemControlsGroup.Visibility = Visibility.Collapsed;
             }
             catch (Exception ex)
             {
@@ -84,7 +86,15 @@ namespace InvoiceSystem.Windows
         {
             try
             {
-
+                var invoice = App.InvoiceService.CurrentInvoice;
+                if (invoice == null)
+                {
+                    MessageBox.Show(this, "There is no Invoice to Edit.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    ItemControlsGroup.Visibility = Visibility.Visible;
+                }
             }
             catch (Exception ex)
             {
@@ -104,9 +114,10 @@ namespace InvoiceSystem.Windows
         {
             try
             {
-                if (App.InvoiceService.CurrentInvoice == null)
+                var invoice = App.InvoiceService.CurrentInvoice;
+                if (invoice == null)
                 {
-                    MessageBox.Show(this, "There is no Invoice to delete.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(this, "There is no Invoice to Delete.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)

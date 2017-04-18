@@ -9,37 +9,22 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="110"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Menu>
-            <MenuItem Header="Search for Invoice" Click="SearchWindowButton_Click"/>
-            <MenuItem Header="Items Definition Table" Click="DefinitionTableWindowButton_Click" />
+            <MenuItem Header="Search for Invoice" FontSize="16" Click="SearchWindowButton_Click"/>
+            <MenuItem Header="Items Definition Table" FontSize="16" Click="DefinitionTableWindowButton_Click" />
         </Menu>
 
-        <!--Command Buttons Buttons-->
-        <GroupBox Grid.Row="2">
-            <GroupBox.Header>
-                <Label Content="Invoice Actions"/>
-            </GroupBox.Header>
-            <Grid Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                
-                <Button Name="EditInvoiceButton" Content="Edit Invoice" Click="EditInvoiceButton_Click"/>
-                <Button Name="DeleteInvoiceButton" Content="Delete Invoice" Grid.Column="2" Click="DeleteInvoiceButton_Click"/>
-            </Grid>
-        </GroupBox>
-
         <!--Create, edit, and delete invoice for current or new invoice-->
-        <GroupBox Grid.Row="4">
+        <GroupBox Grid.Row="2">
             <GroupBox.Header>
                 <Label Content="Invoice"/>
             </GroupBox.Header>
@@ -55,28 +40,71 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="Invoice Number:" FontWeight="Bold" HorizontalContentAlignment="Right"/>
+                <Label Name="InvoiceNumberLabel" FontSize="16" Grid.Column="2" Content="{Binding CurrentInvoice.InvoiceNum}"/>
+                <DatePicker Name="InvoiceDatePicker" Grid.Column="4" SelectedDate="{Binding CurrentInvoice.InvoiceDate}"/>
+
+                <Button Name="SaveInvoiceButton" Content="Create/Save Invoice" Grid.Column="6" Click="CreateNewInvoiceButton_Click"/>
+            </Grid>
+        </GroupBox>
+
+        <!--Command Buttons Buttons-->
+        <GroupBox Grid.Row="4">
+            <GroupBox.Header>
+                <Label Content="Invoice Actions"/>
+            </GroupBox.Header>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Name="EditInvoiceButton" Content="Edit Invoice" Click="EditInvoiceButton_Click"/>
+                <Button Name="DeleteInvoiceButton" Content="Delete Invoice" Grid.Column="2" Click="DeleteInvoiceButton_Click"/>
+            </Grid>
+        </GroupBox>
+
+        <!--Item Controls -->
+        <GroupBox Name="ItemControlsGroup" Grid.Row="6">
+            <GroupBox.Header>
+                <Label Content="Item Controls"/>
+            </GroupBox.Header>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="5"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="5"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Content="Invoice Number:" FontWeight="Bold" HorizontalContentAlignment="Right"/>
-                <Label Name="InvoiceNumberLabel" Grid.Column="2" Content="{Binding CurrentInvoice.InvoiceNum}"/>
-                <DatePicker Name="InvoiceDatePicker" Grid.Column="4" SelectedDate="{Binding CurrentInvoice.InvoiceDate}"/>
+                <Label Content="Item List:" FontWeight="Bold" HorizontalContentAlignment="Right" />
+                <ComboBox Name="ItemsComboBox" Grid.Column="2" ItemsSource="{Binding AllItems}" SelectedItem="{Binding SelectedItem}" IsEditable="False"/>
+                <TextBox Name="ItemCostTextBox" Grid.Column="4" IsReadOnly="True" Text="{Binding SelectedItem.Cost, Mode=OneWay}"/>
+                <Button Name="AddItemButton" Grid.Column="6" Content="Add Item" Click="AddItemButton_Click"/>
 
-                <Button Name="AddItemButton" Content="Add Item" Grid.Row="2" Click="AddItemButton_Click"/>
-                <ComboBox Name="ItemsComboBox" Grid.Row="2" Grid.Column="2" ItemsSource="{Binding AllItems}" SelectedItem="{Binding SelectedItem}" IsEditable="False"/>
-                <TextBox Name="ItemCostTextBox" Grid.Row="2" Grid.Column="4" IsReadOnly="True" Text="{Binding SelectedItem.Cost, Mode=OneWay}"/>
-
-                <Button Name="SaveInvoiceButton" Content="Create/Save Invoice" Grid.Column="6" Click="CreateNewInvoiceButton_Click"/>   
+                <Label Content="Total Charge:" Grid.Row="2" FontWeight="Bold" HorizontalContentAlignment="Right"/>
+                <Label Name="TotalChargeLabel" Grid.Row="2" Grid.Column="2" Content="{Binding CurrentInvoiceViewModel.TotalCharge, Mode=OneWay}"/>
+                <Button Name="DeleteItemButton" Content="Delete Item" Grid.Row="2" Grid.Column="6"/>
             </Grid>
         </GroupBox>
 
         <!--Invoice Items-->
-        <DataGrid Name="ItemDataGrid" Grid.Row="6" IsReadOnly="True" ItemsSource="{Binding CurrentInvoiceItems}" AutoGenerateColumns="False" CanUserAddRows="True" 
+        <DataGrid Name="ItemDataGrid" Grid.Row="8" IsReadOnly="True" ItemsSource="{Binding CurrentInvoiceItems}" AutoGenerateColumns="False" CanUserAddRows="True" 
                   CanUserDeleteRows="True" EnableRowVirtualization="True" EnableColumnVirtualization="True" SelectionUnit="FullRow" GridLinesVisibility="None">
-            
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Invoice Number" Binding="{Binding InvoiceNum}" />
                 <DataGridTextColumn Header="Line Item Number" Binding="{Binding LineItemNum}"/>

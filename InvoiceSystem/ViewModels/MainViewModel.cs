@@ -56,6 +56,24 @@ namespace InvoiceSystem.ViewModels
             }
         }
 
+        private InvoiceViewModel currentInvoiceViewModel;
+
+        /// <summary>
+        /// To display data such as Total charge in a format for viewing.
+        /// </summary>
+        public InvoiceViewModel CurrentInvoiceViewModel
+        {
+            get => currentInvoiceViewModel;
+            set
+            {
+                if (value != currentInvoiceViewModel)
+                {
+                    currentInvoiceViewModel = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         private Invoice currentInvoice;
 
         /// <summary>
@@ -89,13 +107,14 @@ namespace InvoiceSystem.ViewModels
 
                 if (currentInvoice != null)
                 {
-
                     var lineItems = DataStore.LoadLineItems(App.InvoiceService.CurrentInvoice);
 
                     foreach (var line in lineItems)
                     {
                         CurrentInvoiceItems.Add(new CurrentInvoiceItemViewModel(line, DataStore.LoadItem(line)));
                     }
+
+                    CurrentInvoiceViewModel = new InvoiceViewModel(currentInvoice);
                 }
             }
             catch (Exception ex)
