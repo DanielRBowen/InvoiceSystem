@@ -305,6 +305,13 @@ namespace InvoiceSystem
                        ItemCode = (string)row[itemCodeCol]
                    };
 
+                var returnList = invoicesQuery.ToList();
+
+                if (returnList.Count == 0)
+                {
+                    return null;
+                }
+
                 return invoicesQuery.ToList();
             }
             catch (Exception ex)
