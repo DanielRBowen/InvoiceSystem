@@ -77,10 +77,26 @@ namespace InvoiceSystem.ViewModels
         /// <summary>
         /// Refreshes the Current Invoice View Model
         /// </summary>
-        public void RefreshCurrentInvoiceViewModel()
+        public void RefreshInvoice()
         {
-            var invoice = App.InvoiceService.CurrentInvoice;
-            CurrentInvoiceViewModel = new InvoiceViewModel(invoice);
+            var currentInvoice = App.InvoiceService.CurrentInvoice;
+            CurrentInvoiceItems = new ObservableCollection<CurrentInvoiceItemViewModel>();
+
+            if (currentInvoice != null)
+            {
+                var lineItems = DataStore.LoadLineItems(App.InvoiceService.CurrentInvoice);
+
+                foreach (var line in lineItems)
+                {
+                    CurrentInvoiceItems.Add(new CurrentInvoiceItemViewModel(line, DataStore.LoadItem(line)));
+                }
+
+                CurrentInvoiceViewModel = new InvoiceViewModel(currentInvoice);
+            }
+            else
+            {
+                CurrentInvoiceViewModel = null;
+            }
         }
 
         /// <summary>
@@ -93,20 +109,7 @@ namespace InvoiceSystem.ViewModels
                 var items = DataStore.LoadAllItems();
                 AllItems = new ObservableCollection<ItemViewModel>(items.Select(item => new ItemViewModel(item)));
 
-                var currentInvoice = App.InvoiceService.CurrentInvoice;
-                CurrentInvoiceItems = new ObservableCollection<CurrentInvoiceItemViewModel>();
-
-                if (currentInvoice != null)
-                {
-                    var lineItems = DataStore.LoadLineItems(App.InvoiceService.CurrentInvoice);
-
-                    foreach (var line in lineItems)
-                    {
-                        CurrentInvoiceItems.Add(new CurrentInvoiceItemViewModel(line, DataStore.LoadItem(line)));
-                    }
-
-                    CurrentInvoiceViewModel = new InvoiceViewModel(currentInvoice);
-                }
+                RefreshInvoice();
             }
             catch (Exception ex)
             {

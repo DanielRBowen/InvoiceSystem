@@ -1,4 +1,6 @@
-﻿namespace InvoiceSystem.Models
+﻿using System;
+
+namespace InvoiceSystem.Models
 {
     /// <summary>
     /// A model of a line item that taken from the data

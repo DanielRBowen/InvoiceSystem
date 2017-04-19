@@ -70,7 +70,7 @@ namespace InvoiceSystem.Windows
                         App.InvoiceService.CurrentInvoice = invoice;
 
                         invoice.Save();
-                        ViewModel.RefreshCurrentInvoiceViewModel();
+                        ViewModel.RefreshInvoice();
                     }
                     else
                     {
@@ -78,8 +78,8 @@ namespace InvoiceSystem.Windows
                         var items = new List<Item>(itemViews.Select(itemView => itemView.Item));
 
                         invoice.Save(items);
-                        ViewModel.RefreshCurrentInvoiceViewModel();
-                    }                    
+                        ViewModel.RefreshInvoice();
+                    }
                 }
             }
             catch (Exception ex)
@@ -133,8 +133,6 @@ namespace InvoiceSystem.Windows
                 {
                     MessageBox.Show(this, "There is no Invoice to Delete.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -222,7 +220,7 @@ namespace InvoiceSystem.Windows
             var items = new List<Item>(itemViews.Select(itemView => itemView.Item));
 
             invoice.Save(items);
-            ViewModel.RefreshCurrentInvoiceViewModel();
+            ViewModel.RefreshInvoice();
         }
     }
 }

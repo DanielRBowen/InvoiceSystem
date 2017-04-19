@@ -54,7 +54,6 @@ namespace InvoiceSystem
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
-        
 
         /// <summary>
         /// Returns a SQL statement to insert an Invoice into the Invoice Table.
