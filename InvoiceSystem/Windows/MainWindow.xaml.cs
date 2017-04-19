@@ -69,17 +69,9 @@ namespace InvoiceSystem.Windows
 
                         App.InvoiceService.CurrentInvoice = invoice;
 
-                        invoice.Save();
-                        ViewModel.RefreshInvoice();
                     }
-                    else
-                    {
-                        var itemViews = ViewModel.CurrentInvoiceItems;
-                        var items = new List<Item>(itemViews.Select(itemView => itemView.Item));
 
-                        invoice.Save(items);
-                        ViewModel.RefreshInvoice();
-                    }
+                    ViewModel.RefreshInvoice();
                 }
             }
             catch (Exception ex)
@@ -216,10 +208,6 @@ namespace InvoiceSystem.Windows
             var currentInvoiceItemViewModel = new CurrentInvoiceItemViewModel(lineItem, item);
             ViewModel.CurrentInvoiceItems.Add(currentInvoiceItemViewModel);
 
-            var itemViews = ViewModel.CurrentInvoiceItems;
-            var items = new List<Item>(itemViews.Select(itemView => itemView.Item));
-
-            invoice.Save(items);
             ViewModel.RefreshInvoice();
         }
     }

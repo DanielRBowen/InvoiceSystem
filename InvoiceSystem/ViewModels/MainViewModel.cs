@@ -1,5 +1,6 @@
 ﻿using InvoiceSystem.Classes;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
@@ -80,6 +81,24 @@ namespace InvoiceSystem.ViewModels
         public void RefreshInvoice()
         {
             var currentInvoice = App.InvoiceService.CurrentInvoice;
+
+            // Save the data if the current invoice isn't null
+            if (currentInvoice != null)
+            {
+                var itemViews = CurrentInvoiceItems;
+                var items = new List<Item>(itemViews.Select(itemView => itemView.Item));
+
+                if (items.Count > 0)
+                {
+                    currentInvoice.Save(items);
+                }
+                else
+                {
+                    currentInvoice.Save();
+                }
+            }
+
+            // Load the view with the data saved
             CurrentInvoiceItems = new ObservableCollection<CurrentInvoiceItemViewModel>();
 
             if (currentInvoice != null)
