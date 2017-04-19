@@ -164,6 +164,8 @@ namespace InvoiceSystem.Windows
 
                         MessageBox.Show($"Item cannot be deleted cause it exists on invoices {invoiceNumbers}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
+
+                    ViewModel.RefreshItems();
                 }
                 else
                     MessageBox.Show("Please select an item.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
