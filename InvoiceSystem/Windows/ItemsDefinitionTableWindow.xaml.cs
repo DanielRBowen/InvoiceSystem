@@ -94,7 +94,7 @@ namespace InvoiceSystem.Windows
         {
             try
             {
-                if(ItemCodeTextBox.Text == "" || ItemCostTextBox.Text == "" || ItemDescriptionTextBox.Text == "")
+                if (ItemCodeTextBox.Text == "" || ItemCostTextBox.Text == "" || ItemDescriptionTextBox.Text == "")
                 {
                     MessageBox.Show("Please fill out all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -152,7 +152,9 @@ namespace InvoiceSystem.Windows
                 if (ViewModel.SelectedItem != null)
                 {
                     if (MessageBox.Show("Are you sure you want to delete this item?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+                    {
                         return;
+                    }
 
                     // Delete the item from database
                     var lineItems = ViewModel.SelectedItem.Item.TryDelete();
@@ -168,7 +170,9 @@ namespace InvoiceSystem.Windows
                     ViewModel.RefreshItems();
                 }
                 else
+                {
                     MessageBox.Show("Please select an item.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             catch (Exception ex)
             {

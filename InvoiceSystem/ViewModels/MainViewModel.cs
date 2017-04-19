@@ -75,6 +75,15 @@ namespace InvoiceSystem.ViewModels
         }
 
         /// <summary>
+        /// Refreshes the Current Invoice View Model
+        /// </summary>
+        public void RefreshCurrentInvoiceViewModel()
+        {
+            var invoice = App.InvoiceService.CurrentInvoice;
+            CurrentInvoiceViewModel = new InvoiceViewModel(invoice);
+        }
+
+        /// <summary>
         /// MainViewModel constructor to set things up
         /// </summary>
         public MainViewModel()
