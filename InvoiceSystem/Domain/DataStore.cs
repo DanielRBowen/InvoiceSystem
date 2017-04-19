@@ -278,6 +278,43 @@ namespace InvoiceSystem
 
 
         /// <summary>
+        /// Returns true if the Item exists on an invoice.
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <returns></returns>
+        public static IList<LineItem> ItemExistsOnInvoice(string itemCode)
+        {
+            try
+            {
+                int ret = 0;
+                var datastore = new Database();
+                var sql = $"SELECT * FROM LineItems WHERE ItemCode = '{itemCode}'";
+                var result = datastore.ExecuteSQLStatement(sql, ref ret);
+                var table = result.Tables[0];
+                var columns = table.Columns;
+                var invoiceNumCol = columns["InvoiceNum"];
+                var lineItemNumCol = columns["LineItemNum"];
+                var itemCodeCol = columns["ItemCode"];
+
+                var invoicesQuery =
+                   from DataRow row in result.Tables[0].Rows
+                   select new LineItem
+                   {
+                       InvoiceNumber = (int)row[invoiceNumCol],
+                       LineItemNumber = (int)row[lineItemNumCol],
+                       ItemCode = (string)row[itemCodeCol]
+                   };
+
+                return invoicesQuery.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+
+        /// <summary>
         /// Returns true if the Item exists for the given item code.
         /// </summary>
         /// <param name="itemCode"></param>
@@ -328,6 +365,24 @@ namespace InvoiceSystem
             {
                 var sql = $"UPDATE ItemDesc SET ItemCode = '{item.ItemCode}', ItemDesc = '{item.ItemDesc}', Cost = {item.Cost.ToString(NumberFormatInfo.InvariantInfo)} " +
                           $"WHERE ItemCode = '{item.ItemCode}'";
+                var datastore = new Database();
+                datastore.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Deletes an item from database.
+        /// </summary>
+        /// <param name="item"></param>
+        public static void DeleteItem(Item item)
+        {
+            try
+            {
+                var sql = $"DELETE FROM ItemDesc WHERE ItemCode = '{item.ItemCode}'";
                 var datastore = new Database();
                 datastore.ExecuteNonQuery(sql);
             }

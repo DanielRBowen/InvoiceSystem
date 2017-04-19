@@ -3,6 +3,7 @@ using InvoiceSystem.ViewModels;
 using System;
 using System.ComponentModel;
 using System.Reflection;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 
@@ -105,6 +106,7 @@ namespace InvoiceSystem.Windows
                 Item item = new Item { ItemCode = ItemCodeTextBox.Text, Cost = cost, ItemDesc = ItemDescriptionTextBox.Text };
                 item.Save();
                 AddEditItemGrpbx.Visibility = Visibility.Collapsed;
+                ViewModel.AllItems.Add(new ItemViewModel(item));
             }
             catch (Exception ex)
             {
@@ -151,7 +153,15 @@ namespace InvoiceSystem.Windows
                         return;
 
                     // Delete the item from database
-                    //ViewModel.SelectedItem.Item.Delete();
+                    var lineItems = ViewModel.SelectedItem.Item.TryDelete();
+                    if (lineItems != null)
+                    {
+                        var invoiceNumbers = new StringBuilder();
+                        foreach (var lineItem in lineItems)
+                            invoiceNumbers.Append(lineItem.InvoiceNumber.ToString() + ", ");
+
+                        MessageBox.Show($"Item cannot be deleted cause it exists on invoices {invoiceNumbers}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 else
                     MessageBox.Show("Please select an item.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
