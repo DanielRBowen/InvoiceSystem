@@ -1,6 +1,7 @@
 ﻿using InvoiceSystem.Classes;
 using InvoiceSystem.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using System.Text;
@@ -15,7 +16,7 @@ namespace InvoiceSystem.Windows
     public partial class ItemsDefinitionTableWindow : Window
     {
         /// <summary>
-        /// 
+        /// For Access to the datacontext
         /// </summary>
         private ItemsDefinitionViewModel ViewModel => (ItemsDefinitionViewModel)DataContext;
 
@@ -106,7 +107,8 @@ namespace InvoiceSystem.Windows
                 Item item = new Item { ItemCode = ItemCodeTextBox.Text, Cost = cost, ItemDesc = ItemDescriptionTextBox.Text };
                 item.Save();
                 AddEditItemGrpbx.Visibility = Visibility.Collapsed;
-                ViewModel.AllItems.Add(new ItemViewModel(item));
+
+                ViewModel.RefreshItems();
             }
             catch (Exception ex)
             {

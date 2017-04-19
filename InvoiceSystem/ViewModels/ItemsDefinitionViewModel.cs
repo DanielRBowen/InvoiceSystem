@@ -51,14 +51,22 @@ namespace InvoiceSystem.ViewModels
         }
 
         /// <summary>
+        /// Refreshes the list of items
+        /// </summary>
+        public void RefreshItems()
+        {
+            var items = DataStore.LoadAllItems();
+            AllItems = items.Select(item => new ItemViewModel(item)).ToList();
+        }
+
+        /// <summary>
         /// Constructor that gets all Items from the database.
         /// </summary>
         public ItemsDefinitionViewModel()
         {
             try
             {
-                var items = DataStore.LoadAllItems();
-                AllItems = items.Select(item => new ItemViewModel(item)).ToList();
+                RefreshItems();
             }
             catch (Exception ex)
             {

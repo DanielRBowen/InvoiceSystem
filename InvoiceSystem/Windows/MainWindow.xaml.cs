@@ -43,7 +43,7 @@ namespace InvoiceSystem.Windows
         /// An invoice date will also be assigned by the user.  Next different items will be entered by the user.  
         /// The items will be selected from a drop down box and the cost for that item will be put into a read only textbox.  
         /// This will be the default cost of an item. Once the item is selected, the user can add the item.  As many items as needed should be able to be added.  
-        /// All items entered should be displayed for viewing in a list (something like a DataGrid).  Items may be deleted from the list.  
+        /// All items entered should be displayed for viewing in a list (something like a DataGrid).  Items may be deleted from the list.
         /// A running total of the cost should be displayed as items are entered or deleted.
         /// </summary>
         /// <param name="sender"></param>
