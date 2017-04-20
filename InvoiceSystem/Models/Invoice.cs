@@ -61,6 +61,10 @@ namespace InvoiceSystem
                 {
                     CalculateTotalCharge(items);
                 }
+                else
+                {
+                    TotalCharge = 0;
+                }
 
                 if (DataStore.InvoiceExists(InvoiceNum))
                 {
