@@ -68,7 +68,11 @@ namespace InvoiceSystem.Windows
                         };
 
                         App.InvoiceService.CurrentInvoice = invoice;
-
+                        MessageBox.Show(this, "Invoice Created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show(this, "Invoice Saved", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
 
                     ViewModel.RefreshInvoice();
