@@ -103,7 +103,7 @@
 
         <!--Invoice Items-->
         <DataGrid Name="ItemDataGrid" Grid.Row="8" IsReadOnly="True" ItemsSource="{Binding CurrentInvoiceItems}" AutoGenerateColumns="False" CanUserAddRows="True" 
-                  CanUserDeleteRows="True" EnableRowVirtualization="True" EnableColumnVirtualization="True" SelectionUnit="FullRow" GridLinesVisibility="None">
+                  CanUserDeleteRows="True" EnableRowVirtualization="True" EnableColumnVirtualization="True" SelectionUnit="FullRow" GridLinesVisibility="None" SelectionMode="Single">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Invoice Number" Binding="{Binding InvoiceNum}" />
