@@ -130,7 +130,7 @@ namespace InvoiceSystem.Windows
                     var deleted = invoice.TryDelete();
                     if (deleted)
                     {
-                        invoice = null;
+                        App.InvoiceService.CurrentInvoice = null;
                         ViewModel.RefreshInvoice();
                     }
                     else
