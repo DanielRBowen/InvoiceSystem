@@ -129,6 +129,10 @@ namespace InvoiceSystem.Windows
                 }
                 else
                 {
+                    if(MessageBox.Show(this, "Are you sure you want to delete this invoice?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+                    {
+                        return;
+                    }
                     var deleted = invoice.TryDelete();
                     if (deleted)
                     {
@@ -248,9 +252,14 @@ namespace InvoiceSystem.Windows
                 {
                     MessageBox.Show(this, "Items have not been selected.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
+
                 }
                 else
                 {
+                    if (MessageBox.Show(this, "Are you sure you want to delete this item?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+                    {
+                        return;
+                    }
                     var lineItem = currentInvoiceItemViewModel.LineItem;
                     var deleted = lineItem.TryDelete();
                     if(deleted)
