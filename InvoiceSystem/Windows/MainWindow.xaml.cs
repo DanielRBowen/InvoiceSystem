@@ -125,6 +125,19 @@ namespace InvoiceSystem.Windows
                 {
                     MessageBox.Show(this, "There is no Invoice to Delete.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                else
+                {
+                    var deleted = invoice.TryDelete();
+                    if (deleted)
+                    {
+                        invoice = null;
+                        ViewModel.RefreshInvoice();
+                    }
+                    else
+                    {
+                        MessageBox.Show(this, "Invoice could not be deleted.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -181,34 +194,79 @@ namespace InvoiceSystem.Windows
         /// <param name="e"></param>
         private void AddItemButton_Click(object sender, RoutedEventArgs e)
         {
-            var invoice = App.InvoiceService.CurrentInvoice;
-            if (invoice == null)
+            try
             {
-                MessageBox.Show(this, "Please create or select an Invoice.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                var invoice = App.InvoiceService.CurrentInvoice;
+                if (invoice == null)
+                {
+                    MessageBox.Show(this, "Please create or select an Invoice.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                var itemViewModel = (ItemViewModel)ItemsComboBox.SelectedItem;
+                if (itemViewModel == null)
+                {
+                    MessageBox.Show(this, "Please select an item to add to the invoice.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                var item = itemViewModel.Item;
+                var lineItemNumber = DataStore.AddItemToInvoice(invoice, item);
+
+                var lineItem = new LineItem
+                {
+                    InvoiceNumber = invoice.InvoiceNum,
+                    ItemCode = item.ItemCode,
+                    LineItemNumber = lineItemNumber
+                };
+
+                var currentInvoiceItemViewModel = new CurrentInvoiceItemViewModel(lineItem, item);
+                ViewModel.CurrentInvoiceItems.Add(currentInvoiceItemViewModel);
+
+                ViewModel.RefreshInvoice();
+            }
+            catch (Exception ex)
+            {
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
             }
 
-            var itemViewModel = (ItemViewModel)ItemsComboBox.SelectedItem;
-            if (itemViewModel == null)
+}
+
+        /// <summary>
+        /// Method for when the delete items button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteItemButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
             {
-                MessageBox.Show(this, "Please select an item to add to the invoice.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                var currentInvoiceItemViewModel = (CurrentInvoiceItemViewModel)ItemDataGrid.SelectedItem;
+                if(currentInvoiceItemViewModel == null)
+                {
+                    MessageBox.Show(this, "Items have not been selected.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else
+                {
+                    var lineItem = currentInvoiceItemViewModel.LineItem;
+                    var deleted = lineItem.TryDelete();
+                    if(deleted)
+                    {
+                        ViewModel.CurrentInvoiceItems.Remove(currentInvoiceItemViewModel);
+                        ViewModel.RefreshInvoice();
+                    }
+                    else
+                    {
+                        MessageBox.Show(this, "Line items could not be deleted.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
             }
-
-            var item = itemViewModel.Item;
-            var lineItemNumber = DataStore.AddItemToInvoice(invoice, item);
-
-            var lineItem = new LineItem
+            catch (Exception ex)
             {
-                InvoiceNumber = invoice.InvoiceNum,
-                ItemCode = item.ItemCode,
-                LineItemNumber = lineItemNumber
-            };
-
-            var currentInvoiceItemViewModel = new CurrentInvoiceItemViewModel(lineItem, item);
-            ViewModel.CurrentInvoiceItems.Add(currentInvoiceItemViewModel);
-
-            ViewModel.RefreshInvoice();
+                Error.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex);
+            }
         }
     }
 }

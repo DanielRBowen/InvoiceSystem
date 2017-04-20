@@ -97,7 +97,7 @@
 
                 <Label Content="Total Charge:" Grid.Row="2" FontWeight="Bold" HorizontalContentAlignment="Right"/>
                 <Label Name="TotalChargeLabel" Grid.Row="2" Grid.Column="2" Content="{Binding CurrentInvoiceViewModel.TotalCharge, Mode=OneWay}"/>
-                <Button Name="DeleteItemButton" Content="Delete Item" Grid.Row="2" Grid.Column="6"/>
+                <Button Name="DeleteItemButton" Content="Delete Item" Grid.Row="2" Grid.Column="6" Click="DeleteItemButton_Click"/>
             </Grid>
         </GroupBox>
 

@@ -56,6 +56,27 @@ namespace InvoiceSystem
         }
 
         /// <summary>
+        /// Method to delete the lineitems and invoice from database
+        /// </summary>
+        /// <param name="invoice"></param>
+        public static void DeleteInvoice(Invoice invoice)
+        {
+            try
+            {
+                var sql = $"DELETE FROM LineItems WHERE InvoiceNum = {invoice.InvoiceNum}";
+                var datastore = new Database();
+                datastore.ExecuteNonQuery(sql);
+
+                sql = $"DELETE FROM Invoices WHERE InvoiceNum = {invoice.InvoiceNum}";
+                datastore.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Returns a SQL statement to insert an Invoice into the Invoice Table.
         /// </summary>
         /// <param name="invoice">invoice object to be inserted</param>
@@ -389,6 +410,44 @@ namespace InvoiceSystem
             try
             {
                 var sql = $"DELETE FROM ItemDesc WHERE ItemCode = '{item.ItemCode}'";
+                var datastore = new Database();
+                datastore.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Method to return if a line item exists
+        /// </summary>
+        /// <param name="lineItem"></param>
+        /// <returns></returns>
+        public static bool LineItemExists(LineItem lineItem)
+        {
+            try
+            {
+                var datastore = new Database();
+                var sql = $"SELECT 1 FROM LineItems WHERE LineItemNum = {lineItem.LineItemNumber}";
+                var exists = datastore.ExecuteScalarSQL(sql);
+                return !string.IsNullOrWhiteSpace(exists);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Method to delete the line item that exists
+        /// </summary>
+        /// <param name="lineItem"></param>
+        public static void DeleteLineItem(LineItem lineItem)
+        {
+            try
+            {
+                var sql = $"DELETE FROM LineItems WHERE LineItemNum = {lineItem.LineItemNumber}";
                 var datastore = new Database();
                 datastore.ExecuteNonQuery(sql);
             }
