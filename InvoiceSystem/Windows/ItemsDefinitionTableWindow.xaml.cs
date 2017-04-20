@@ -237,7 +237,7 @@ namespace InvoiceSystem.Windows
             try
             {
                 // Only allow numbers to be entered
-                if (!(e.Key >= Key.D0 && e.Key <= Key.D9))
+                if (!(e.Key >= Key.D0 && e.Key <= Key.D9 || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.OemPeriod))
                 {
                     // Allow the user to use the backspace, delete, tab, enter, left & right arrow keys, and space
                     if (!(e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Tab || e.Key == Key.Enter
