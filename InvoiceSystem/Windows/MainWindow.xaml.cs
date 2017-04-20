@@ -250,7 +250,7 @@ namespace InvoiceSystem.Windows
                 var currentInvoiceItemViewModel = (CurrentInvoiceItemViewModel)ItemDataGrid.SelectedItem;
                 if(currentInvoiceItemViewModel == null)
                 {
-                    MessageBox.Show(this, "Items have not been selected.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(this, "Please select an item from below.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
 
                 }
