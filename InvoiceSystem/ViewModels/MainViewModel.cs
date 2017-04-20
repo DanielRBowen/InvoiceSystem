@@ -82,6 +82,9 @@ namespace InvoiceSystem.ViewModels
         {
             var currentInvoice = App.InvoiceService.CurrentInvoice;
 
+            // Load the view with the data saved
+            CurrentInvoiceItems = new ObservableCollection<CurrentInvoiceItemViewModel>();
+
             // Save the data if the current invoice isn't null
             if (currentInvoice != null)
             {
@@ -97,9 +100,6 @@ namespace InvoiceSystem.ViewModels
                     currentInvoice.Save();
                 }
             }
-
-            // Load the view with the data saved
-            CurrentInvoiceItems = new ObservableCollection<CurrentInvoiceItemViewModel>();
 
             if (currentInvoice != null)
             {
