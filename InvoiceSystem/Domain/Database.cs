@@ -20,7 +20,7 @@ namespace InvoiceSystem.Classes
 		/// <summary>
 		/// Constructor that sets the connection string to the database
 		/// </summary>
-		public Database() : this(@"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory() + "\\..\\..\\Invoice.mdb")
+		public Database() : this(@"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory() + "\\Invoice.mdb")
 		{
 		}
 
