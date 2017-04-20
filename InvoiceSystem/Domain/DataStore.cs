@@ -390,7 +390,7 @@ namespace InvoiceSystem
         {
             try
             {
-                var sql = $"UPDATE ItemDesc SET ItemCode = '{item.ItemCode}', ItemDesc = '{item.ItemDesc}', Cost = {item.Cost.ToString(NumberFormatInfo.InvariantInfo)} " +
+                var sql = $"UPDATE ItemDesc SET ItemDesc = '{item.ItemDesc}', Cost = {item.Cost.ToString(NumberFormatInfo.InvariantInfo)} " +
                           $"WHERE ItemCode = '{item.ItemCode}'";
                 var datastore = new Database();
                 datastore.ExecuteNonQuery(sql);
