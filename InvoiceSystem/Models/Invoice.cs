@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace InvoiceSystem
 {
@@ -31,13 +32,22 @@ namespace InvoiceSystem
         /// <param name="items"></param>
         private void CalculateTotalCharge(List<Item> items)
         {
-            decimal totalCharge = 0;
-            foreach (var item in items)
+            try
             {
-                totalCharge += item.Cost;
+
+                decimal totalCharge = 0;
+                foreach (var item in items)
+                {
+                    totalCharge += item.Cost;
+                }
+
+                TotalCharge = totalCharge;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
 
-            TotalCharge = totalCharge;
         }
 
         /// <summary>
@@ -45,18 +55,49 @@ namespace InvoiceSystem
         /// </summary>
         public void Save(List<Item> items = null)
         {
-            if (items != null)
+            try
             {
-                CalculateTotalCharge(items);
-            }
+                if (items != null)
+                {
+                    CalculateTotalCharge(items);
+                }
 
-            if (DataStore.InvoiceExists(InvoiceNum))
-            {
-                DataStore.UpdateInvoice(this);
+                if (DataStore.InvoiceExists(InvoiceNum))
+                {
+                    DataStore.UpdateInvoice(this);
+                }
+                else
+                {
+                    InvoiceNum = DataStore.InsertInvoice(this);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                InvoiceNum = DataStore.InsertInvoice(this);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Bool to try and delete invoice and line items
+        /// </summary>
+        /// <returns></returns>
+        internal bool TryDelete()
+        {
+            try
+            {
+                if(DataStore.InvoiceExists(InvoiceNum))
+                {
+                    DataStore.DeleteInvoice(this);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
     }
