@@ -125,6 +125,7 @@ namespace InvoiceSystem.Windows
         {
             try
             {
+                ItemCodeTextBox.IsReadOnly = false;
                 AddEditItemGrpbx.Visibility = Visibility.Visible;
                 ViewModel.SelectedItem = null;
                 ItemCodeTextBox.Focus();
@@ -189,6 +190,7 @@ namespace InvoiceSystem.Windows
         {
             try
             {
+                ItemCodeTextBox.IsReadOnly = true;
                 ViewModel.SelectedItem = (ItemViewModel)ItemDataGrid.SelectedItem;
                 AddEditItemGrpbx.Visibility = Visibility.Visible;
             }
