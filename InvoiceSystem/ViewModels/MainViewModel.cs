@@ -88,6 +88,13 @@ namespace InvoiceSystem.ViewModels
             // Save the data if the current invoice isn't null
             if (currentInvoice != null)
             {
+                var lineItems = DataStore.LoadLineItems(App.InvoiceService.CurrentInvoice);
+
+                foreach (var line in lineItems)
+                {
+                    CurrentInvoiceItems.Add(new CurrentInvoiceItemViewModel(line, DataStore.LoadItem(line)));
+                }
+
                 var itemViews = CurrentInvoiceItems;
                 var items = new List<Item>(itemViews.Select(itemView => itemView.Item));
 
@@ -98,16 +105,6 @@ namespace InvoiceSystem.ViewModels
                 else
                 {
                     currentInvoice.Save();
-                }
-            }
-
-            if (currentInvoice != null)
-            {
-                var lineItems = DataStore.LoadLineItems(App.InvoiceService.CurrentInvoice);
-
-                foreach (var line in lineItems)
-                {
-                    CurrentInvoiceItems.Add(new CurrentInvoiceItemViewModel(line, DataStore.LoadItem(line)));
                 }
 
                 CurrentInvoiceViewModel = new InvoiceViewModel(currentInvoice);
