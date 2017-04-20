@@ -106,9 +106,9 @@ namespace InvoiceSystem.Windows
 
                 Item item = new Item { ItemCode = ItemCodeTextBox.Text, Cost = cost, ItemDesc = ItemDescriptionTextBox.Text };
                 item.Save();
-                AddEditItemGrpbx.Visibility = Visibility.Collapsed;
 
                 ViewModel.RefreshItems();
+                AddEditItemGrpbx.Visibility = Visibility.Collapsed;
             }
             catch (Exception ex)
             {
