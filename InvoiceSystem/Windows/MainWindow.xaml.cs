@@ -97,7 +97,7 @@ namespace InvoiceSystem.Windows
                 var invoice = App.InvoiceService.CurrentInvoice;
                 if (invoice == null)
                 {
-                    MessageBox.Show(this, "There is no Invoice to Edit.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(this, "Please select an invoice.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -125,7 +125,7 @@ namespace InvoiceSystem.Windows
                 var invoice = App.InvoiceService.CurrentInvoice;
                 if (invoice == null)
                 {
-                    MessageBox.Show(this, "There is no Invoice to Delete.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(this, "Please select an invoice.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
