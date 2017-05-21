@@ -18,6 +18,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!--Menu-->
         <Menu>
             <MenuItem Header="Search for Invoice" FontSize="16" Click="SearchWindowButton_Click"/>
             <MenuItem Header="Items Definition Table" FontSize="16" Click="DefinitionTableWindowButton_Click" />
